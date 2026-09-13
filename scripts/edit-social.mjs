@@ -35,13 +35,13 @@ for(const [i,clip] of clips.entries()){
     '-pix_fmt','yuv420p','-movflags','+faststart',join(cuts,`${i}.mp4`)]);
 }
 await writeFile(join(cuts,'concat.txt'),clips.map((_,i)=>`file '${i}.mp4'`).join('\n')+'\n');
-const target=join(output,'palovbek-vertical.mp4');
+const target=join(output,capture.format==='square'?`palovbek-square-${capture.locale}.mp4`:'palovbek-vertical.mp4');
 run('ffmpeg',['-hide_banner','-loglevel','error','-y','-f','concat','-safe','1','-i',join(cuts,'concat.txt'),
   '-c','copy','-movflags','+faststart',target]);
 const probe=JSON.parse(run('ffprobe',['-v','error','-show_entries','format=duration,size:stream=codec_name,width,height,pix_fmt,avg_frame_rate','-of','json',target]));
 const report={source:'Actual browser simulation; no scripted demo or synthetic spike counters.',
   editing:'Selected normal-speed moments, joined with cuts. Waiting time omitted. No audio track.',
-  recorded_at:capture.recorded_at,locale:capture.locale??'en',presentation:capture.presentation,neurons:capture.neurons,connections:capture.connections,
+  recorded_at:capture.recorded_at,locale:capture.locale??'en',format:capture.format??'vertical',presentation:capture.presentation,neurons:capture.neurons,connections:capture.connections,
   outcome:capture.events.at(-1).outcome,total_spikes:capture.events.at(-1).spikes,
   mistakes:capture.events.at(-1).mistakes,backend:capture.events.at(-1).backend,
   clips,export:probe};

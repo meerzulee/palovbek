@@ -15,6 +15,8 @@
 
 [English clip](https://github.com/meerzulee/palovbek/releases/download/v1.0.0/palovbek-vertical.mp4) · [Русское видео](https://github.com/meerzulee/palovbek/releases/download/v1.0.1/palovbek-ru.mp4)
 
+Square, kitchen-only clips: [English](https://github.com/meerzulee/palovbek/releases/download/v1.0.1/palovbek-square-en.mp4) · [Русский](https://github.com/meerzulee/palovbek/releases/download/v1.0.1/palovbek-square-ru.mp4)
+
 Palovbek wears a **do‘ppi**, chops carrots, stirs the **zirvak**, layers rice, and waits beside a bubbling **qazan**. Sometimes he rubs his forelegs. Sometimes he has opinions about your portion sizes.
 
 The kitchen and neural simulation run **in your browser**. No account, API key, Python server, or GPU rental is needed for the default experience.
@@ -126,9 +128,14 @@ npm run media:edit
 # Russian recording with a compact header and neuron count:
 PALOVBEK_LANG=ru PALOVBEK_MEDIA_DIR=artifacts/social-ru npm run media:record
 PALOVBEK_MEDIA_DIR=artifacts/social-ru npm run media:edit
+# Square kitchen-only clips, with English or Russian speech bubbles:
+PALOVBEK_FORMAT=square PALOVBEK_LANG=en PALOVBEK_MEDIA_DIR=artifacts/square-en npm run media:record
+PALOVBEK_MEDIA_DIR=artifacts/square-en npm run media:edit
+PALOVBEK_FORMAT=square PALOVBEK_LANG=ru PALOVBEK_MEDIA_DIR=artifacts/square-ru npm run media:record
+PALOVBEK_MEDIA_DIR=artifacts/square-ru npm run media:edit
 ```
 
-Outputs go to `artifacts/social/`: a full WebM capture, a vertical H.264 MP4 highlight, a cover image, and a capture log. The recording changes presentation CSS only. The edited clip uses cuts at normal playback speed; it is not one uninterrupted cook. Launch media are available in the [release downloads](https://github.com/meerzulee/palovbek/releases).
+Outputs go to the selected `PALOVBEK_MEDIA_DIR` (default `artifacts/social/`): a full WebM capture, an H.264 MP4 highlight, a cover image, and a capture log. `PALOVBEK_FORMAT=square` records the kitchen and translated speech bubbles at 1080 × 1080, without dashboard or title overlays; the default is vertical. The recording changes presentation CSS only. The edited clip uses cuts at normal playback speed; it is not one uninterrupted cook. Launch media are available in the [release downloads](https://github.com/meerzulee/palovbek/releases).
 
 ## Explore the code
 

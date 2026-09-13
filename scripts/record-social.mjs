@@ -6,6 +6,8 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 
 const locale = process.env.PALOVBEK_LANG === 'ru' ? 'ru' : 'en';
+const square = process.env.PALOVBEK_FORMAT === 'square';
+const size = { width: 1080, height: square ? 1080 : 1920 };
 const output = resolve(process.env.PALOVBEK_MEDIA_DIR ?? 'artifacts/social');
 const localChrome = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 const browser = await chromium.launch({
@@ -14,8 +16,8 @@ const browser = await chromium.launch({
 });
 await mkdir(output, { recursive: true });
 const context = await browser.newContext({
-  viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1,
-  recordVideo: { dir: resolve(output, 'raw'), size: { width: 1080, height: 1920 } },
+  viewport: size, deviceScaleFactor: 1,
+  recordVideo: { dir: resolve(output, 'raw'), size },
 });
 const page = await context.newPage();
 const started = Date.now();
@@ -39,8 +41,17 @@ try {
   await page.getByRole('button', { name: locale === 'ru' ? 'Загрузить веса · 79 МБ' : 'Load weights · 79 MB', exact: true }).click();
   await page.waitForFunction(() => window.__socialSnapshot?.world.added.includes('oil'), undefined, { timeout: 300000 });
   console.log('Real model loaded; recording the full recipe.');
-  // Keep a larger, legible kitchen and measured brain view in the vertical export.
-  await page.addStyleTag({ content: `
+  // Reframe the actual scene to the output aspect ratio; keep the fly's speech.
+  await page.addStyleTag({ content: square ? `
+    html, body { width:1080px!important; height:1080px!important; overflow:hidden!important; background:#0d1215!important; }
+    .site-header, footer, .kitchen-column > :not(.kitchen-card), .chef-column,
+    .scene-topline, .scene-bottomline, .scene-caption { display:none!important; }
+    .minimal-main { padding:0!important; margin:0!important; max-width:none!important; }
+    .minimal-main .dashboard, .minimal-main .kitchen-column { display:block!important; }
+    .minimal-main .neural-lab .kitchen-card { position:absolute!important; inset:0!important; width:1080px!important; height:1080px!important; border:0!important; border-radius:0!important; overflow:hidden!important; }
+    .canvas-host { inset:0!important; }
+    .minimal-main .fly-thought { max-width:560px!important; font-size:26px!important; padding:15px 21px!important; line-height:1.35!important; border-radius:16px!important; }
+  ` : `
     html, body { width:1080px!important; height:1920px!important; overflow:hidden!important; background:#0d1215!important; }
     .site-header, footer, .kitchen-column > :not(.kitchen-card), .chef-column > :not(.neural-dashboard),
     .scene-topline, .scene-bottomline, .scene-caption, .neuron-details, .brain-controls { display:none!important; }
@@ -69,7 +80,7 @@ try {
     #social-footer b { color:#b7ecd1; font:700 36px Arial; }
     #social-footer span { color:#9badb6; font:23px/1.4 Arial; text-align:right; }
   ` });
-  await page.evaluate(locale => {
+  if (!square) await page.evaluate(locale => {
     for (const [id, text] of [['social-title',locale === 'ru' ? 'Паловбек' : 'Palovbek'], ['social-hook',locale === 'ru' ? '166 700 нейронов' : '166,700 neurons'], ['social-step',locale === 'ru' ? 'Шесть лапок. Один серьёзный рецепт.' : 'Six legs. One very serious recipe.']]) {
       const el = document.createElement('div'); el.id=id; el.textContent=text; el.style.whiteSpace='pre-line'; document.body.append(el);
     }
@@ -107,7 +118,7 @@ try {
   if(!doneAt) throw Error('Recording timed out before serving.');
   await page.screenshot({ path:resolve(output,'palovbek-cover.png') });
   const metadata=await page.evaluate(()=>({neurons:window.__socialMetadata.neurons,connections:window.__socialMetadata.connections}));
-  await writeFile(resolve(output,'capture.json'),JSON.stringify({recorded_at:new Date().toISOString(),locale,presentation:'compact title, neuron count retained',...metadata,errors,events},null,2)+'\n');
+  await writeFile(resolve(output,'capture.json'),JSON.stringify({recorded_at:new Date().toISOString(),locale,format:square?'square':'vertical',size,presentation:square?'kitchen only, with localized fly speech':'compact title, neuron count retained',...metadata,errors,events},null,2)+'\n');
   if(errors.length) throw Error(errors.join('\n'));
   await context.close();
   await page.video().saveAs(resolve(output,'full-cook.webm'));
