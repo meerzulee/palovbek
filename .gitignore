@@ -19,3 +19,5 @@ public/browser-brain/
 .dev.vars
 .dev.vars.*
 playwright-report/
+docs/SOCIAL.md
+docs/social/

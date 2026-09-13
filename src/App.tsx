@@ -1,11 +1,12 @@
 import { useLanguage, LanguageSwitcher } from './i18n';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { ArrowDown, ArrowLeft, ArrowRight, AudioLines, BookOpen, Camera, Check, CircleHelp, Clock3, Coffee, Ellipsis, CookingPot, Expand, Grid2X2, House, Flame, Leaf, MoveUpRight, Pause, Play, RotateCcw, Settings2, Slice, Sparkles, Volume2, VolumeX, X } from 'lucide-react';
 import KitchenScene from './KitchenScene';
 import BrainPanel from './BrainPanel';
 import BrainLoadDialog from './BrainLoadDialog';
 import { hasCachedBrowserBrain } from './browserBrainCache';
-import KitchenToolbar from './KitchenToolbar';
+import { checkBrowserBrainSupport } from './browserSupport';
+import KitchenToolbar, { DemoToolbar } from './KitchenToolbar';
 import NeuralDashboard from './NeuralDashboard';
 import { NeuralControls, NeuralEpisode } from './NeuralControls';
 import CookingLog from './CookingLog';
@@ -32,6 +33,9 @@ function App() {
   const [follow, setFollow] = useState(false);
   const motionClock = useMotionClock(cooking, chefAction);
   const [neuralMode, setNeuralMode] = useState(true);
+  const [browserSupport, setBrowserSupport] = useState<'checking' | 'supported' | 'unavailable'>('checking');
+  const [demoFallback, setDemoFallback] = useState(false);
+  const choseMode = useRef(false);
   const [brainRuntime,setBrainRuntime]=useState<'browser'|'local'>('browser');
   const neural = useNeural(neuralMode,brainRuntime);
   const recipeMode = neuralMode && neural.snapshot?.controller === 'recipe';
@@ -65,22 +69,34 @@ function App() {
   const soundContext = useRef<AudioContext | null>(null);
   const soundGain = useRef<GainNode | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const startDemo = useCallback((fallback = false) => {
+    neural.cancelLoad();
+    setNeuralMode(false);setBrainRuntime('browser');setLoadDialogOpen(false);setDemoFallback(fallback);
+    setCooking({...INITIAL_STATE,added:[],started:true,running:true,speed:DEFAULT_PLAYBACK_SPEED});
+    setChefAction('auto');setFollow(true);
+  }, [neural.cancelLoad]);
 
   useEffect(() => {
     let disposed = false;
-    void hasCachedBrowserBrain().then(cached => {
+    void (async () => {
+      const supported = await checkBrowserBrainSupport();
       if (disposed) return;
-      if (cached) neural.reconnect();
-      else setLoadDialogOpen(true);
-    });
+      setBrowserSupport(supported ? 'supported' : 'unavailable');
+      if (choseMode.current) return;
+      if (!supported) { startDemo(true); return; }
+      const cached = await hasCachedBrowserBrain();
+      if (disposed || choseMode.current) return;
+      if (cached) neural.reconnect(); else setLoadDialogOpen(true);
+    })();
     return () => { disposed = true; };
-  }, [neural.reconnect]);
+  }, [neural.reconnect, startDemo]);
 
   useEffect(() => {
     if (!neuralMode || brainRuntime !== 'browser') return;
+    if (neural.unavailable) { setBrowserSupport('unavailable'); startDemo(true); return; }
     if (neural.status === 'connected') setLoadDialogOpen(false);
     else if (neural.status === 'offline' && neural.error) setLoadDialogOpen(true);
-  }, [neuralMode, brainRuntime, neural.status, neural.error]);
+  }, [neuralMode, brainRuntime, neural.status, neural.error, neural.unavailable, startDemo]);
 
   useEffect(() => {
     if(neuralMode && neural.snapshot?.running) setFollow(true);
@@ -169,9 +185,9 @@ function App() {
         <button aria-label={t("The experiment")} onClick={()=>setModal('about')}><CircleHelp size={20}/><span>{t("About")}</span></button>
         <button aria-label={t("The recipe")} onClick={()=>setModal('recipe')}><BookOpen size={20}/><span>{t("Recipes")}</span></button>
         <details className="app-settings"><summary aria-label={t("Settings")}><Settings2 size={20}/><span>{t("Settings")}</span></summary>      <div className="experiment-modes" onClick={event=>{if((event.target as HTMLElement).closest('button'))event.currentTarget.closest('details')?.removeAttribute('open');}} role="group" aria-label={t("Experiment mode")}>
-        <button aria-pressed={!neuralMode} onClick={() => { neural.send('pause'); setNeuralMode(false); }}>{t("Scripted cooking demo")}</button>
-        <button aria-pressed={neuralMode&&brainRuntime==='browser'} onClick={()=>{neural.send('pause');setCooking(state=>({...state,running:false}));setChefAction('auto');setBrainRuntime('browser');setNeuralMode(true);}}>{t("Browser brain")}</button>
-        {localTools && <button aria-pressed={neuralMode&&brainRuntime==='local'} onClick={() => { neural.send('pause');setBrainRuntime('local');setCooking(state => ({ ...state, running: false })); setChefAction('auto'); setNeuralMode(true); }}>{t("Live neural experiment")}</button>}
+        <button aria-pressed={!neuralMode} onClick={() => { choseMode.current=true;neural.send('pause');setLoadDialogOpen(false);setNeuralMode(false); }}>{t("Scripted cooking demo")}</button>
+        <button disabled={browserSupport!=='supported'} title={browserSupport==='unavailable'?t('The brain simulation is unavailable on this device.'):undefined} aria-pressed={neuralMode&&brainRuntime==='browser'} onClick={()=>{choseMode.current=true;neural.send('pause');setDemoFallback(false);setCooking(state=>({...state,running:false}));setChefAction('auto');setBrainRuntime('browser');setNeuralMode(true);}}>{t("Browser brain")}</button>
+        {localTools && <button aria-pressed={neuralMode&&brainRuntime==='local'} onClick={() => { choseMode.current=true;neural.send('pause');setLoadDialogOpen(false);setBrainRuntime('local');setCooking(state => ({ ...state, running: false })); setChefAction('auto'); setNeuralMode(true); }}>{t("Live neural experiment")}</button>}
         <span>{neuralMode ? recipeMode || brainRuntime==='browser' ? t('Your own fly · recipe instructions · real simulated spikes') : t('Untrained neural readout · failure allowed') : t('A playful 90-second recipe, with illustrated brain activity')}</span>
       </div>
 </details>
@@ -181,10 +197,11 @@ function App() {
   return <>
     <header className="site-header">
       <a className="brand" href="#" aria-label={t("Palovbek home")}><span className="brand-mark"><FlyIllustration/></span><span>Palovbek</span></a>
-      {neuralMode&&brainRuntime==='browser' ? <KitchenToolbar connection={neural} onLoad={()=>setLoadDialogOpen(true)} onStart={()=>setFollow(true)}>{navigation}</KitchenToolbar> : navigation}
+      {neuralMode&&brainRuntime==='browser' ? <KitchenToolbar connection={neural} onLoad={()=>{if(browserSupport==='supported')setLoadDialogOpen(true);}} onStart={()=>setFollow(true)}>{navigation}</KitchenToolbar> : !neuralMode&&demoFallback ? <DemoToolbar running={cooking.running} finished={done} onToggle={toggleCooking}>{navigation}</DemoToolbar> : navigation}
     </header>
 
     <main className={neuralMode?'lab-main minimal-main':'minimal-main'}>
+      {!neuralMode&&demoFallback&&<p className="demo-notice" role="status"><Play size={18}/><span><strong>{t('Demo mode')}</strong> {t('The brain simulation is unavailable on this device.')}</span></p>}
       <div className={`dashboard ${neuralMode?'neural-lab':''}`}>
         <div className="kitchen-column">
           <section className={`kitchen-card ${expanded?'is-expanded':''}`} aria-label={t("The 3D plov yard")}>
@@ -231,10 +248,10 @@ function App() {
         </aside>
       </div>
 
-      <footer className="site-footer"><p>{t("Made with a little Uzbek soul.")} <span>{t("Osh bo‘lsin!")}</span></p><button onClick={()=>setModal('about')}><CircleHelp size={13}/>  {t("What’s the buzz about?")}</button></footer>
+      <footer className="site-footer"><button onClick={()=>setModal('about')}><CircleHelp size={13}/>  {t("What’s the buzz about?")}</button></footer>
     </main>
 
-    <BrainLoadDialog open={loadDialogOpen} connection={neural} onClose={()=>setLoadDialogOpen(false)}/>
+    <BrainLoadDialog open={loadDialogOpen&&neuralMode&&brainRuntime==='browser'&&browserSupport==='supported'} connection={neural} onClose={()=>setLoadDialogOpen(false)} onDemo={()=>{choseMode.current=true;startDemo();}}/>
     {toast&&<div className="toast" role="status"><Check size={16}/>{t(toast)}</div>}
     <dialog ref={dialogRef} onCancel={()=>setModal(null)} aria-label={modal==='about'?t('About the Palovbek experiment'):t('Uzbek plov recipe')} className="info-dialog"><button className="dialog-close" onClick={()=>setModal(null)} aria-label={t("Close dialog")}><X size={20}/></button>{modal==='about'?<><div className="eyebrow">{t("A LITTLE CONTEXT")}</div><h2>{t("A small fly.")}<br/>{t("An oversized idea.")}</h2><p>{t("Scientists mapped the wiring of a fruit fly’s nervous system. The internet gave flies video games and wild side quests. We thought: someone should teach one to make plov.")}</p><div className="about-callout"><FlyIllustration/><p><strong>{t("Two ways to meet Palovbek.")}</strong>{t("The scripted demo does not run a biological neural simulation. The browser brain runs the Xenova MaleCNS spiking model on your device. The optional local Python experiment uses a separate MaleCNS graph selection and an untrained action decoder. In free experiment mode, measured spikes drive decisions. Recipe chef follows authored cooking rules. In browser mode, simulated output spikes adjust ingredient portions and brief pauses; the local Python recipe mode observes activity only. It has not learned to cook and is not an uploaded mind.")}</p></div><p>{t("Plov is a dish built around rice, carrots, meat, and patience. An")} <em>{t("oshpaz")}</em>  {t("is a plov cook; a")} <em>{t("qazan")}</em>  {t("is the big, round cooking pot at the heart of it all.")}</p><a className="source-link" href="https://research.google/blog/a-connectomics-milestone-mapping-the-complete-male-fruit-fly-brain/" target="_blank" rel="noreferrer">{t("Read the Google Research announcement")} <MoveUpRight size={15}/></a><div className="dialog-bottom">{t("An independent experiment. Made with affection for Uzbek food.")}</div></>:<><div className="eyebrow">{t("FROM THE PLOV YARD")}</div><h2>{t("Good plov takes")}<br/>{t("a little patience.")}</h2><p>{t("A simplified Uzbek-style plov for four. Our 90-second kitchen is playtime; a real qazan takes much longer.")}</p><div className="recipe-list">{STAGES.map((step,i)=><div key={step.name}><span>{String(i+1).padStart(2,'0')}</span><div><h3>{t(step.name)}</h3><p>{t(step.description)}</p></div>{i<STAGES.length-1&&<ArrowDown size={13}/>}</div>)}</div><div className="recipe-source-list">{RECIPES.map(item => <a key={item.id} href={item.source} target="_blank" rel="noreferrer">{t(item.name)}  {t("· recipe reference ↗")}</a>)}</div><p className="recipe-note">{t("Recipe chef uses simplified versions of these researched dishes. Quince is pre-cut, chickpeas pre-soaked, quail pre-stuffed, and eggs and qazi pre-cooked. Also on hand: water and salt to taste. Regional recipes vary; this little kitchen celebrates the tradition, one qazan at a time.")}</p><button className="cook-button" onClick={()=>setModal(null)}><ArrowLeft size={15}/>  {t("Back to the kitchen")}</button></>}</dialog>
     <div className="sr-only" aria-live="polite">{neuralMode ? t(neural.snapshot?.world.last_result ?? 'Initialize the browser brain or explore the scripted demo.') : done?t('Plov is ready.'):cooking.started?t(`Stage ${stage+1}: ${currentStage.name}.`):t('Kitchen ready. Press Let’s make plov to begin.')}</div>

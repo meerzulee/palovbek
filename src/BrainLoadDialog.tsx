@@ -3,10 +3,11 @@ import { useEffect, useRef } from 'react';
 import { ArrowRight, BrainCircuit, Check, Cpu, Download, LoaderCircle, RotateCcw, X } from 'lucide-react';
 import type { NeuralConnection } from './useNeural';
 
-export default function BrainLoadDialog({ open, connection, onClose }: {
+export default function BrainLoadDialog({ open, connection, onClose, onDemo }: {
   open: boolean;
   connection: NeuralConnection;
   onClose: () => void;
+  onDemo: () => void;
 }) {
   const { t } = useLanguage();
   const dialog = useRef<HTMLDialogElement>(null);
@@ -32,6 +33,7 @@ export default function BrainLoadDialog({ open, connection, onClose }: {
     <div className="load-dialog-actions">
       {ready ? <button className="cook-button" onClick={onClose}>{t("Enter the kitchen")} <ArrowRight size={16}/></button> : loading ? <><button className="cook-button" onClick={onClose}>{t("Continue loading in background")} <ArrowRight size={16}/></button><button className="load-secondary" onClick={connection.cancelLoad}>{t("Cancel download")}</button></> : <><button className="cook-button" onClick={connection.reconnect}>{failed ? <RotateCcw size={16}/> : <Download size={16}/>} {failed ? t('Retry loading weights') : t('Load weights · 79 MB')}</button><button className="load-secondary" onClick={onClose}>{t("Explore the kitchen first")}</button></>}
     </div>
+    {!ready&&<button className="load-secondary load-demo" onClick={onDemo}>{t('Watch cooking demo')}</button>}
     <p className="load-dialog-note">{t("A simulated brain, a recipe, and a little Uzbek soul. Downloads are saved for your next visit.")}</p>
   </dialog>;
 }

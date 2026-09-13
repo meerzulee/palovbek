@@ -1,0 +1,72 @@
+{
+  "checked_at": "2026-09-13T18:52:53.622686+00:00",
+  "cloudflare_version": "b52ad801-efb4-40c2-9d2b-55b11266dadd",
+  "unit_tests": {
+    "passed": 36,
+    "failed": 0
+  },
+  "chromium": {
+    "regressions_passed": 14,
+    "coverage": [
+      "Missing WebGPU, null adapter, rejected device, insufficient limits, timeout",
+      "GPU kernel failure before graph download",
+      "Blocked worker startup and explicit demo cancellation",
+      "Real model spikes and cached restart",
+      "Download failures, retry/cancel, blocked cache",
+      "Mobile loader, readable controls, language switch, scene expansion"
+    ]
+  },
+  "webkit": {
+    "engine": "Playwright WebKit 26.6",
+    "viewport_widths": [
+      320,
+      390,
+      440
+    ],
+    "height": 956,
+    "device_scale_factor": 3,
+    "touch": true,
+    "forced_webgpu_unavailable": true,
+    "verified": [
+      "Automatic animated demo",
+      "Aligned 44-pixel scene controls",
+      "No horizontal overflow",
+      "Russian pause/resume labels",
+      "Removed footer phrase",
+      "No page errors"
+    ],
+    "physical_iphone_tested": false
+  },
+  "production_fallback": {
+    "url": "https://plov.mrz.sh",
+    "chromium_absent_webgpu": "passed",
+    "webkit_touch_layout": "passed"
+  },
+  "russian_clip": {
+    "locale": "ru",
+    "presentation": "compact title, neuron count retained",
+    "neurons": 166700,
+    "connections": 25582938,
+    "backend": "gpu",
+    "outcome": "served",
+    "mistakes": 0,
+    "total_spikes": 10020930,
+    "duration_seconds": 31.466016,
+    "resolution": [
+      1080,
+      1920
+    ],
+    "codec": "H.264",
+    "fps": 30,
+    "audio": false,
+    "sha256": "35a2d042bec2ab8719c6cd807f785ca27bcff629e4443a172e92936a460c2b9a"
+  },
+  "source_sha256": {
+    "src/browserSupport.ts": "abf9baa53b46c29054c70b02a513af3174fa9d58c6cf3d330011edae929d7423",
+    "src/useNeural.ts": "71173f48f7d9fe96bf6023a94c99a3c3f6d1139568e7047559fb4ce1c7907bb9",
+    "src/browserBrain.worker.ts": "7f9bab83e2e27e3c1365c81ed86213949c42ded2637dc63128c2b25351eb2b5c",
+    "src/App.tsx": "ed695eb89167627f60f98e0b5d9727cd80c3a2e25299b0217be9491f2b3533f0",
+    "src/minimal.css": "3ad9ea4975e900f6e90e348cd30148eee2c7ff03ac71b2b32ebe7c11b0460d45",
+    "e2e/browser-support.spec.ts": "2598f7b2cee50490f3d15e45c2bd93c456530a0ccdf652a75276a836e5655ace"
+  }
+}

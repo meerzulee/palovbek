@@ -14,6 +14,7 @@ export function useNeural(enabled: boolean, runtime:BrainRuntime='local') {
   const [snapshot, setSnapshot] = useState<NeuralSnapshot | null>(null);
   const [metadata, setMetadata] = useState<NeuralMetadata | null>(null);
   const [error, setError] = useState(''),[loading,setLoading]=useState(''),[progress,setProgress]=useState(0);
+  const [unavailable, setUnavailable] = useState(false);
   const [attempt, setAttempt] = useState(0),[history,setHistory]=useState(savedCooks);
   const historyRef=useRef(history);
   const socket = useRef<WebSocket | null>(null),worker=useRef<Worker|null>(null);
@@ -23,15 +24,16 @@ export function useNeural(enabled: boolean, runtime:BrainRuntime='local') {
   const transition = useRef({ from: 0, fromProgress: 0, received: 0, duration: .12, finishing: null as ChefCue | null });
   const connected = useRef(false);
   useEffect(() => {
-    setSnapshot(null);setMetadata(null);latest.current=null;connected.current=false;setError('');setProgress(0);setLoading('');
+    setSnapshot(null);setMetadata(null);latest.current=null;connected.current=false;setError('');setProgress(0);setLoading('');setUnavailable(false);
     if (!enabled || (runtime==='browser'&&attempt===0)) {setStatus('offline');return;}
     setStatus('connecting');
-    let disposed=false,receivedMetadata=false,autoCookStarted=false,lastMessage=performance.now();
+    let disposed=false,receivedMetadata=false,autoCookStarted=false,lastMessage=performance.now(),initializingGPU=true;
     const receive=(message:Record<string,unknown>)=>{
       if(disposed)return;lastMessage=performance.now();
       try {
         if(message.type==='progress'){setProgress(Number(message.value));return;}
-        if(message.type==='stage'){setLoading(String(message.message));return;}
+        if(message.type==='stage'){if(message.phase)initializingGPU=message.phase==='engine';setLoading(String(message.message));return;}
+        if(message.type==='unavailable'){setUnavailable(true);setError(String(message.message));setStatus('offline');connected.current=false;worker.current?.terminate();return;}
         if(message.type==='metadata'){
           if(message.protocol!==1||!Array.isArray(message.sample_cells))throw Error('Brain protocol mismatch.');
           receivedMetadata=true;connected.current=true;setMetadata(message as unknown as NeuralMetadata);setStatus('connected');setError('');setLoading('');
@@ -57,12 +59,21 @@ export function useNeural(enabled: boolean, runtime:BrainRuntime='local') {
     };
     if(runtime==='browser'){
       setLoading('Loading the neural engine…');
-      const localWorker=new Worker(new URL('./browserBrain.worker.ts',import.meta.url),{type:'module'});worker.current=localWorker;
+      let localWorker: Worker;
+      try { localWorker=new Worker(new URL('./browserBrain.worker.ts',import.meta.url),{type:'module'}); }
+      catch { setUnavailable(true);setError('The browser could not start the neural engine.');setStatus('offline');return; }
+      worker.current=localWorker;
       localWorker.onmessage=event=>receive(event.data);
-      localWorker.onerror=event=>{if(!disposed){setError(`Browser brain stopped: ${event.message||'worker failure'}. Reload the brain to retry.`);connected.current=false;setStatus('offline');localWorker.terminate();}};
+      localWorker.onerror=event=>{if(!disposed){setUnavailable(true);setError(`Browser brain stopped: ${event.message||'worker failure'}. Reload the brain to retry.`);connected.current=false;setStatus('offline');localWorker.terminate();}};
       localWorker.postMessage({type:'init',assetBase:new URL('browser-brain/',document.baseURI).href});
-      const watchdog=setInterval(()=>{if(!receivedMetadata&&performance.now()-lastMessage>90000){localWorker.terminate();setError('Loading stalled. Retry to reuse verified downloaded files.');setStatus('offline');}},10000);
-      return ()=>{disposed=true;connected.current=false;clearInterval(watchdog);localWorker.terminate();worker.current=null;};
+      const foreground=()=>{lastMessage=performance.now();};
+      document.addEventListener('visibilitychange',foreground);
+      const watchdog=setInterval(()=>{
+        if(document.hidden)return;
+        const gpuStalled=(!receivedMetadata&&initializingGPU||receivedMetadata&&latest.current?.running)&&performance.now()-lastMessage>20000;
+        if(gpuStalled||!receivedMetadata&&performance.now()-lastMessage>90000){localWorker.terminate();connected.current=false;setUnavailable(!!gpuStalled);setError('Loading stalled. Retry to reuse verified downloaded files.');setStatus('offline');}
+      },2000);
+      return ()=>{disposed=true;connected.current=false;clearInterval(watchdog);document.removeEventListener('visibilitychange',foreground);localWorker.terminate();worker.current=null;};
     }
     const connection=new WebSocket(`${location.protocol==='https:'?'wss:':'ws:'}//${location.host}/api/neural/ws`);socket.current=connection;
     const offline=()=>connection.close();window.addEventListener('offline',offline);
@@ -96,6 +107,6 @@ export function useNeural(enabled: boolean, runtime:BrainRuntime='local') {
   const downloadLog=useCallback((report?:CookingReport)=>{if(report)downloadReport(report);else if(runtime==='browser')send('export_log');else window.open('/api/neural/cooking-log','_blank','noopener');},[runtime,send]);
   const reconnect=useCallback(()=>setAttempt(value=>value+1),[]);
   const cancelLoad=useCallback(()=>{if(runtime==='browser')setAttempt(0);},[runtime]);
-  return {runtime,status,snapshot,metadata,error,loading,progress,history,downloadLog,clock,visualCue,send,reconnect,cancelLoad};
+  return {runtime,status,snapshot,metadata,error,loading,progress,unavailable,history,downloadLog,clock,visualCue,send,reconnect,cancelLoad};
 }
 export type NeuralConnection = ReturnType<typeof useNeural>;

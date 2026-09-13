@@ -13,7 +13,7 @@
 
 [![Palovbek cooking plov with live simulated brain activity](docs/media/palovbek-preview.jpg)](https://plov.mrz.sh)
 
-[Watch / download the vertical cooking clip](https://github.com/meerzulee/palovbek/releases/download/v1.0.0/palovbek-vertical.mp4)
+[English clip](https://github.com/meerzulee/palovbek/releases/download/v1.0.0/palovbek-vertical.mp4) · [Русское видео](https://github.com/meerzulee/palovbek/releases/download/v1.0.1/palovbek-ru.mp4)
 
 Palovbek wears a **do‘ppi**, chops carrots, stirs the **zirvak**, layers rice, and waits beside a bubbling **qazan**. Sometimes he rubs his forelegs. Sometimes he has opinions about your portion sizes.
 
@@ -51,11 +51,11 @@ flowchart LR
 
 Continuous portions can vary by ±20%; whole-item counts stay fixed. The recipe checks browning and rice hydration, and never stirs after layering rice. No training run or newly trained weights are required. This is an independent creative experiment, not a claim of a conscious uploaded fly or a biologically validated chef.
 
-The optional **Scripted cooking demo** has a separately labeled decorative brain view. The optional Python experiment uses a different cohort; its measurements should not be confused with the browser model.
+The **Scripted cooking demo** starts automatically when WebGPU is unavailable and has a separately labeled decorative brain view. The optional Python experiment uses a different cohort; its measurements should not be confused with the browser model.
 
 ## Run locally
 
-Use **Node.js 22.18+** and npm. The app was checked with Node 26 and Chrome on an Apple M5. A recent browser with WebGL2 is needed; WebGPU is preferred for the model, with a JavaScript CPU fallback. Allow several hundred MB of working memory in addition to the approximately 79 MB model download. Phone performance depends on the device.
+Use **Node.js 22.18+** and npm. The app was checked with Node 26 and Chrome on an Apple M5. A recent browser with WebGL2 is needed. The browser checks for a usable WebGPU device before loading the model. If unsupported, or if GPU initialization fails, the animated cooking demo starts automatically without claiming live neural activity. Allow several hundred MB of working memory in addition to the approximately 79 MB model download. Phone performance depends on the device.
 
 ```sh
 git clone https://github.com/meerzulee/palovbek.git
@@ -123,9 +123,12 @@ npm run preview -- --port 4173
 # In another terminal:
 npm run media:record
 npm run media:edit
+# Russian recording with a compact header and neuron count:
+PALOVBEK_LANG=ru PALOVBEK_MEDIA_DIR=artifacts/social-ru npm run media:record
+PALOVBEK_MEDIA_DIR=artifacts/social-ru npm run media:edit
 ```
 
-Outputs go to `artifacts/social/`: a full WebM capture, a vertical H.264 MP4 highlight, a cover image, and a capture log. The recording changes presentation CSS only. The edited clip uses cuts at normal playback speed; it is not one uninterrupted cook. See [the media guide and bilingual launch copy](docs/SOCIAL.md).
+Outputs go to `artifacts/social/`: a full WebM capture, a vertical H.264 MP4 highlight, a cover image, and a capture log. The recording changes presentation CSS only. The edited clip uses cuts at normal playback speed; it is not one uninterrupted cook. Launch media are available in the [release downloads](https://github.com/meerzulee/palovbek/releases).
 
 ## Explore the code
 

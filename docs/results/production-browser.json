@@ -1,5 +1,5 @@
 {
-  "checked_at": "2026-09-13T18:04:33.935Z",
+  "checked_at": "2026-09-13T18:52:34.603Z",
   "url": "https://plov.mrz.sh",
   "country_default": {
     "locale": "ru"
@@ -8,7 +8,7 @@
     "width": 390,
     "height": 844
   },
-  "run_id": "f259ff83-06b2-440e-b5f6-556c2173568b",
+  "run_id": "9628ffce-64b3-4554-b93c-68428e8d40be",
   "backend": "gpu",
   "neurons": 166700,
   "connections": 25582938,

@@ -520,5 +520,10 @@
   "Precious cargo. Make way for the oshpaz.": "Ценный груз. Дорогу ошпазу.",
   "Do‘ppi stays on. This is serious plov.": "Тюбетейку не снимаю. Плов — дело серьёзное.",
   "POV: you gave a fly a qazan.": "POV: ты доверил мухе казан.",
-  "Choy first? Choy always.": "Сначала чай? Чай — всегда."
+  "Choy first? Choy always.": "Сначала чай? Чай — всегда.",
+  "Demo mode": "Демо-режим",
+  "The brain simulation is unavailable on this device.": "Симуляция мозга недоступна на этом устройстве.",
+  "Watch cooking demo": "Смотреть, как Паловбек готовит",
+  "Downloading verified brain data…": "Загружаем проверенные данные мозга…",
+  "Runs on your device. WebGPU with a cooking demo fallback.": "Работает на вашем устройстве. Если WebGPU недоступен, включится демо готовки."
 }

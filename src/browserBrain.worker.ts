@@ -18,6 +18,8 @@ let outputLeft:number[]=[],outputRight:number[]=[];
 let decision:NeuralSnapshot['decision']=null, log:CookingLogEntry[]=[];
 let telemetry:NeuralSnapshot['neural']={simulated_seconds:0,window_seconds:.01,total_spikes:0,window_spikes:0,active_neurons:0,population_hz:[0,0,0],sample_counts:[],active_cells:[]};
 let queue=Promise.resolve(), timer:ReturnType<typeof setTimeout>|undefined, disposed=false;
+let initializationPhase: 'engine' | 'download' = 'engine';
+let initialized = false;
 const send=(message:unknown)=>postMessage(message);
 const STEP_COUNT=100, NEURAL_SECONDS=.01, KITCHEN_SECONDS=.25;
 const channels:Record<string,string>={odor_oil:'ORN_DM1',odor_onion:'ORN_DM2',odor_lamb:'ORN_DM3',odor_carrot:'ORN_DM4',odor_spice:'ORN_DL1',odor_garlic:'ORN_VA2',odor_rice:'ORN_VM2',heat:'TRN_VP1m',contact:'BM',prep_view:'LC9',qazan_view:'LC4',smoke:'ORN_DC4'};
@@ -37,8 +39,8 @@ async function reset(recipeId:string,nextSeed:number){
   runId=crypto.randomUUID();sequence=0;totalSpikes=wallSeconds=lastWall=0;log=[];interventions=[];decision=null;portionPlan=null;sensoryEnabled=true;transmissionOff=false;startedAt=new Date().toISOString();
   telemetry={simulated_seconds:0,window_seconds:NEURAL_SECONDS,total_spikes:0,window_spikes:0,active_neurons:0,population_hz:[0,0,0],sample_counts:sample.map(()=>0),active_cells:[]};
 }
-function schedule(){clearTimeout(timer);if(running&&!disposed)timer=setTimeout(()=>{queue=queue.then(tick).catch(fail);},taskFrameDelay(lastWall,frameSeconds));}
-function fail(error:unknown){running=false;clearTimeout(timer);send({type:'error',message:`Browser brain stopped: ${error instanceof Error?error.message:String(error)}. Reload the brain to start a fresh session.`});if(graph&&brain)send(snapshot());}
+function schedule(){clearTimeout(timer);if(running&&!disposed)timer=setTimeout(()=>{queue=queue.then(tick).catch(error=>fail(error,true));},taskFrameDelay(lastWall,frameSeconds));}
+function fail(error:unknown,unavailable=false){running=false;clearTimeout(timer);send({type:unavailable?'unavailable':'error',message:`Browser brain stopped: ${error instanceof Error?error.message:String(error)}. Reload the brain to start a fresh session.`});if(!unavailable&&graph&&brain)send(snapshot());}
 async function tick(){
   if(!running||kitchen.world.outcome)return;
   const start=performance.now(),rates=new Float32Array(graph.n),cues=kitchen.observe();
@@ -64,6 +66,16 @@ async function tick(){
 }
 async function initialize(assetBase:string,preferred:string){
   configureAssetBase(assetBase);
+  let check:unknown=null;
+  initializationPhase='engine';
+  if(preferred!=='cpu'){
+    // Test the actual worker/kernel runtime before downloading 79 MB of graph data.
+    send({type:'stage',phase:'engine',message:'Checking WebGPU against the reference engine…'});
+    const {BrainGPU}=await import('./vendor/xenova/brain-gpu.js'),{checkGPU}=await import('./vendor/xenova/gpu-check.js');
+    check=await checkGPU(g=>BrainGPU.create(g));
+  }
+  initializationPhase='download';
+  send({type:'stage',phase:'download',message:'Downloading verified brain data…'});
   graph=await loadGraph(value=>send({type:'progress',value}),message=>send({type:'stage',message}));
   graph.neurons.forEach((row,i)=>{if(['dopamine','octopamine','serotonin'].includes(row[4]))graph.sign[i]=1;});
   for(const [name,type] of Object.entries(channels))sensory[name]=graph.neurons.flatMap((row,i)=>row[1]===type?[i]:[]);
@@ -76,17 +88,15 @@ async function initialize(assetBase:string,preferred:string){
   // A deterministic display sample; every graph neuron still participates in computation.
   sample=candidates.filter((_,i)=>i%Math.max(1,Math.floor(candidates.length/8000))===0).slice(0,8500);
   const cells:NeuralMetadata['sample_cells']=sample.map(i=>{const row=graph.neurons[i],p=row[6]!;return {body_id:String(row[0]),type:row[1]||'untyped',superclass:row[2],position:[-(p[0]-48000)/42000,-(p[2]-35000)/42000,(p[1]-24000)/42000],source_soma_voxels:p,region:regions[i]===0?1:regions[i]===2?2:0};});
-  let check:unknown=null;
-  if(preferred!=='cpu')try{
-    send({type:'stage',message:'Checking WebGPU against the reference engine…'});
-    const {BrainGPU}=await import('./vendor/xenova/brain-gpu.js'),{checkGPU}=await import('./vendor/xenova/gpu-check.js');
-    check=await checkGPU(g=>BrainGPU.create(g));
-    send({type:'stage',message:'Loading the complete graph into WebGPU…'});
+  initializationPhase='engine';
+  if(preferred!=='cpu'){
+    send({type:'stage',phase:'engine',message:'Loading the complete graph into WebGPU…'});
+    const {BrainGPU}=await import('./vendor/xenova/brain-gpu.js');
     brain=await BrainGPU.create(graph,{seed});backend='gpu';
-  }catch(error){send({type:'stage',message:`WebGPU unavailable; using the JavaScript neural engine. ${error instanceof Error?error.message:''}`});brain=new BrainCPU(graph,{seed});backend='cpu';}
+  }
   else{brain=new BrainCPU(graph,{seed});backend='cpu';}
   metadata={type:'metadata',protocol:1,model_version:'xenova-malecns-browser-v1',dataset:graph.manifest.dataset,neurons:graph.n,connections:graph.manifest.edges,synapse_weight_sum:graph.manifest.synapses,decoder:'Recipe order + measured neural output for portion and hesitation',actions:[],notice:'Xenova MaleCNS LIF model in a browser worker. Kitchen cues stimulate selected annotated cells. Recipe rules constrain order; an engineered output readout changes portion size and short pauses. Not learned cooking.',sample_cells:cells,brain_window_seconds:NEURAL_SECONDS,world_window_seconds:KITCHEN_SECONDS};
-  await reset('classic',seed);send({...metadata,backend,gpu_check:check});send(snapshot());
+  await reset('classic',seed);initialized=true;send({...metadata,backend,gpu_check:check});send(snapshot());
 }
 self.onmessage=({data:m})=>{
   queue=queue.then(async()=>{
@@ -102,6 +112,6 @@ self.onmessage=({data:m})=>{
     else if(m.command==='export_log'){send({type:'export',report:report()});return;}
     else throw Error('This command is not supported by the browser engine');
     send(snapshot());schedule();
-  }).catch(fail);
+  }).catch(error=>fail(error,!initialized&&initializationPhase==='engine'));
 };
 self.addEventListener('close',()=>{disposed=true;clearTimeout(timer);if('destroy' in (brain??{}))(brain as BrainGPU).destroy();});

@@ -391,3 +391,24 @@ button:focus-visible,a:focus-visible,summary:focus-visible,input:focus-visible {
 }
 @media(max-width:540px) { .minimal-main .neural-lab .kitchen-card.is-expanded { inset:8px; } }
 @media(max-width:360px) { .site-header { padding-inline:10px; } }
+
+.demo-notice { display:flex; align-items:center; gap:10px; margin:0 0 18px; color:#b4c1bb; font:16px/1.5 Arial,Helvetica,sans-serif; }
+.demo-notice>svg { flex:none; color:#b7ecd1; }
+.demo-notice strong { display:block; color:#e4eee8; font-weight:500; }
+.load-demo { display:block; margin:10px auto 0; }
+.experiment-modes button:disabled { opacity:.5; cursor:not-allowed; }
+/* Identical touch targets, centered glyphs, and a subtle follow state on phones. */
+@media(max-width:850px) {
+  .minimal-main .dashboard { grid-template-columns:minmax(0,1fr); }
+  .minimal-main .kitchen-column,.minimal-main .chef-column { min-width:0; }
+  .minimal-main .scene-topline { align-items:center; }
+  .minimal-main .chef-moves button,.minimal-main .scene-tools button {
+    display:grid; place-items:center; flex:0 0 44px; width:44px; min-width:44px;
+    height:44px; min-height:44px; padding:0; margin:0; border:0; border-radius:10px;
+    background:transparent; box-shadow:none; color:#c4cfcb;
+  }
+  .minimal-main .chef-moves button.active { background:#b7ecd11a; color:#b7ecd1; }
+  .minimal-main .chef-moves button svg,.minimal-main .scene-tools button svg { width:20px; height:20px; }
+  .minimal-main .chef-moves,.minimal-main .scene-tools { gap:2px; }
+  .minimal-main .scene-topline { gap:4px; }
+}

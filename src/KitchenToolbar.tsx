@@ -3,6 +3,21 @@ import { BrainCircuit, CookingPot, LoaderCircle, Pause, Play, RotateCcw } from '
 import type { ReactNode } from 'react';
 import type { NeuralConnection } from './useNeural';
 
+export function DemoToolbar({ running, finished, onToggle, children }: {
+  running: boolean; finished: boolean; onToggle: () => void; children: ReactNode;
+}) {
+  const { t } = useLanguage();
+  const label = running ? 'Pause cooking' : finished ? 'Cook another plov' : 'Continue cooking';
+  return <section className="kitchen-toolbar" aria-label={t('Quick cooking controls')}>
+    <div className="toolbar-summary"><div><h1>{t('Choyxona plov')}</h1></div></div>
+    {children}
+    <button className="cook-button" aria-label={t(`${label} from toolbar`)} title={t(label)} onClick={onToggle}>
+      {running ? <Pause size={18}/> : finished ? <RotateCcw size={18}/> : <Play size={18}/>}
+      <span>{t(running ? 'Pause' : finished ? 'Cook again' : 'Resume')}</span>
+    </button>
+  </section>;
+}
+
 export default function KitchenToolbar({ connection, onLoad, onStart, children }: {
   connection: NeuralConnection;
   onLoad: () => void;

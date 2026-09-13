@@ -41,7 +41,7 @@ run('ffmpeg',['-hide_banner','-loglevel','error','-y','-f','concat','-safe','1',
 const probe=JSON.parse(run('ffprobe',['-v','error','-show_entries','format=duration,size:stream=codec_name,width,height,pix_fmt,avg_frame_rate','-of','json',target]));
 const report={source:'Actual browser simulation; no scripted demo or synthetic spike counters.',
   editing:'Selected normal-speed moments, joined with cuts. Waiting time omitted. No audio track.',
-  recorded_at:capture.recorded_at,neurons:capture.neurons,connections:capture.connections,
+  recorded_at:capture.recorded_at,locale:capture.locale??'en',presentation:capture.presentation,neurons:capture.neurons,connections:capture.connections,
   outcome:capture.events.at(-1).outcome,total_spikes:capture.events.at(-1).spikes,
   mistakes:capture.events.at(-1).mistakes,backend:capture.events.at(-1).backend,
   clips,export:probe};
