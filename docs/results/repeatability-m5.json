@@ -1,0 +1,18 @@
+{
+  "seed": 17,
+  "compared": [
+    "episode-seed-17-m5.json",
+    "episode-seed-17-repeat-m5.json"
+  ],
+  "checks": {
+    "outcome": true,
+    "mistakes": true,
+    "added": true,
+    "neural_seconds": true,
+    "world_seconds": true,
+    "action_count": true,
+    "total_spikes": true,
+    "events": true
+  },
+  "note": "Two independent full-graph untrained episodes on the same machine. Timing and run IDs intentionally excluded."
+}

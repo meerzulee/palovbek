@@ -1,0 +1,30 @@
+{
+  "checked_at": "2026-09-13T18:04:33.935Z",
+  "url": "https://plov.mrz.sh",
+  "country_default": {
+    "locale": "ru"
+  },
+  "mobile_viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "run_id": "f259ff83-06b2-440e-b5f6-556c2173568b",
+  "backend": "gpu",
+  "neurons": 166700,
+  "connections": 25582938,
+  "total_spikes": 259345,
+  "ingredients": [
+    "oil"
+  ],
+  "engine": "xenova-malecns-browser-v1",
+  "frame_seconds": 0.25,
+  "downloadedFiles": 28,
+  "redownloadedFiles": 0,
+  "cached_visit_skips_modal": true,
+  "cached_visit_autostarts": true,
+  "page_errors": [],
+  "cross_origin_requests": [
+    "https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495",
+    "https://static.cloudflareinsights.com/beacon.min.js/v31edd6df95cf4e85bb4c19e7a9bdbcba1788362987495"
+  ]
+}

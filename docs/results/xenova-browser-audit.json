@@ -1,0 +1,54 @@
+{
+  "utc": "2026-09-13T14:06:55.590Z",
+  "commit": "776d115ee5aa934578a87fd6d260d138084f59c1",
+  "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/152.0.0.0 Safari/537.36",
+  "neurons": 166700,
+  "edges": 25582938,
+  "synapses": 124177617,
+  "stimulated_neurons": 219,
+  "cpu": [
+    {
+      "condition": "rest",
+      "spikes": 0,
+      "active": 0,
+      "downstream": 0,
+      "neural_seconds": 0.05,
+      "wall_seconds": 0.009299999997019769,
+      "finite": true
+    },
+    {
+      "condition": "LC9",
+      "spikes": 7560,
+      "active": 3371,
+      "downstream": 5636,
+      "neural_seconds": 0.05,
+      "wall_seconds": 0.17179999999701978,
+      "finite": true
+    },
+    {
+      "condition": "LC9_no_recurrence",
+      "spikes": 1924,
+      "active": 219,
+      "downstream": 0,
+      "neural_seconds": 0.05,
+      "wall_seconds": 0.006899999998509884,
+      "finite": true
+    }
+  ],
+  "gpu": {
+    "available": true,
+    "self_check": {
+      "neurons": 257,
+      "steps": 1600,
+      "totalSpikes": 19084,
+      "maxVoltageError": 0.000057220458984375,
+      "maxSynapticError": 0.000030517578125
+    },
+    "full_graph": {
+      "wall_seconds": 0.08459999999403954,
+      "neural_seconds": 0.05,
+      "spikes": 7561,
+      "mismatched_neuron_counts": 1
+    }
+  }
+}

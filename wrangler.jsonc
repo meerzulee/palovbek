@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "plov-fly",
+  "compatibility_date": "2026-09-13",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+    "binding": "ASSETS",
+    "run_worker_first": [
+      "/api/locale"
+    ]
+  },
+  "main": "worker/index.ts",
+  "routes": [
+    {
+      "pattern": "plov.mrz.sh",
+      "custom_domain": true
+    }
+  ]
+}

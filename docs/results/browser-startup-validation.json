@@ -1,0 +1,35 @@
+{
+  "utc": "2026-09-13T15:03:03.936490+00:00",
+  "behavior": [
+    "Missing model files open the initial dialog without user interaction.",
+    "A full cache is detected using every current model asset hash and URL, without downloading weights.",
+    "The dialog closes and cooking starts automatically when initialization completes.",
+    "Returning visits initialize and cook without a modal flash or repeated weight downloads.",
+    "A sticky toolbar above the scene pauses, resumes, or starts another cook.",
+    "Selecting another recipe can start it directly while the current recipe is cooking.",
+    "Explicit reset and pause remain paused.",
+    "Missing or blocked cache shows the loader; initialization failures can be retried."
+  ],
+  "validation": {
+    "browser": "Chrome 152",
+    "host": "Wrangler local Workers Static Assets, http://localhost:8787",
+    "e2e_command": "PLAYWRIGHT_BASE_URL=http://localhost:8787 npx playwright test e2e/browser.spec.ts e2e/kitchen.spec.ts",
+    "e2e_passed": 7,
+    "e2e_failed": 0,
+    "unit_passed": 26,
+    "initialization": "Real complete 166,700-neuron model, not a stub",
+    "mobile_viewport": "390 \u00d7 844",
+    "note": "After the full suite, aligned the recipe-switch button icon with its already-tested label/action; the final build typechecks that visual change."
+  },
+  "source_sha256": {
+    "src/App.tsx": "cd28ace69733b18228881851efaae2982c4d7d930e04daae84fd926436b1b61e",
+    "src/useNeural.ts": "7bb5c1364619bbdb7ad6eb0b5b5f41e25fbc90c390d1de851574c320dbf5e7be",
+    "src/KitchenToolbar.tsx": "f5d7e0c36631601e30adcd8dfdaca63638ff146c4adb2f490f970beb14578aa2",
+    "src/NeuralControls.tsx": "7ca5fb8f4bb87e43cf35dd73259d7bbd940141b0e23c601930ef3365a804bcc2",
+    "src/BrainLoadDialog.tsx": "0192e13f2a527d1b9fefb6ada263159b6bcf37b2203346423a18f90f99030d68",
+    "src/brainLoader.css": "41bd06c78d1d3ffdffb32147d0e029e182adc9e6801aae19bc56b8b62235ed48",
+    "src/browserBrainCache.ts": "ba4b408a7f191aac80065a410df3af8140961d666357802669fb3f376f326f3a",
+    "src/vendor/xenova/data-loader.js": "fe3064ed98b6ed5e03d408b75f8fb22bf270946ff4c5f7ae8306fdc70e6ceddf",
+    "src/vendor/xenova/browser-manifest.json": "488b43a012160fe516961d90115b383addc7fb2c23984d28ddbf9b735206c4ce"
+  }
+}

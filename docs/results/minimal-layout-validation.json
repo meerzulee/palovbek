@@ -1,0 +1,49 @@
+{
+  "utc": "2026-09-13T16:09:30.503703+00:00",
+  "change": "Minimal visual layout with readable type, illustrated recipes, cooking-stage icons and expandable technical detail.",
+  "checks": {
+    "build": "passed",
+    "static_asset_hashes": "passed",
+    "frontend_unit_tests": 26,
+    "browser_tests_passed": 8,
+    "browser_tests_failed": 0,
+    "browser": "Chrome 152",
+    "host": "Wrangler local Workers Static Assets",
+    "viewport_widths": [
+      1440,
+      390
+    ],
+    "minimum_default_view_text_px": 14,
+    "full_real_model_recipe": "wedding, served, zero mistakes",
+    "visual_review": [
+      "Desktop while cooking",
+      "Desktop finished dish",
+      "Mobile layout and sticky controls",
+      "First-visit loader"
+    ],
+    "additional_check": "Repeated the full browser cook after allowing offscreen WebGL canvases to redraw before the final screenshot; passed."
+  },
+  "features_preserved": [
+    "Automatic cooking",
+    "Cached-weight startup",
+    "Manual pause and reset",
+    "Recipe switching",
+    "Measured neural activity",
+    "JSON log downloads",
+    "Demo animations and planted tool grips"
+  ],
+  "source_sha256": {
+    "src/App.tsx": "6c61d27043dc351aa381f5a215d091d40563488ed97822aa947b704dd3682acc",
+    "src/KitchenToolbar.tsx": "683b447ff018eba6c907647c620d5c040c401fdbe904f568866a7c9cfd073404",
+    "src/NeuralDashboard.tsx": "c44e5baeddec36b29eaaf81aa759b94059cff3cf949a9f1647214ec1a3b7dfb1",
+    "src/NeuralBrainPanel.tsx": "74864afa6af604d2db095c7d0d667c9164ff1c57757a4d25bca4323a05c7e26c",
+    "src/NeuralControls.tsx": "18a5a8bf3f1abdf262266491f8cc39c06882de5d52eeb7b22921a575eb34c301",
+    "src/CookingLog.tsx": "c7bffa39108b47d62ac4d97beafc5a8a861e1b86c55906294eeac29e177438b8",
+    "src/BrainLoadDialog.tsx": "368a0591d9a06d13c4674d64f5ab10e1c8dd00578a11af83999b79ac25538f1f",
+    "src/KitchenScene.tsx": "26bceb21b34712e5d2eda5d09b70a66ead17712f4ebae5913cef15b04371b338",
+    "src/minimal.css": "e682c471c56d3e71b0a9fa723ea5bb3d0db4012890915611bb10302556c022e7",
+    "src/main.tsx": "7a55407a6a7812c6ad7b80a9a19a151461dd811c674603a4fef1fecee85a28d8",
+    "e2e/browser.spec.ts": "07f0c149c9ba7e7fa213a50af0dc0fedd6fa35ebf4a345eab7f387e5337b6cc4",
+    "e2e/kitchen.spec.ts": "7231cfcc9ba1dafc21f140fbb55f659b73a602140ef291ad811cdbb4acfe1eee"
+  }
+}

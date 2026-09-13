@@ -1,0 +1,166 @@
+{
+  "environment": {
+    "utc": "2026-09-13T12:36:54.299105+00:00",
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "python": "3.12.12",
+    "cpu_count": 10,
+    "ram_bytes": 25769803776,
+    "versions": {
+      "numpy": "2.5.3",
+      "numba": "0.67.0",
+      "brian2": "2.10.1",
+      "scipy": "1.18.1",
+      "pyarrow": "23.0.1"
+    }
+  },
+  "seed": 17,
+  "engine": "male-cns-lif-v1",
+  "decoder": "untrained-disjoint-output-pools-v1",
+  "outcome": "failed_recipe",
+  "mistakes": 14,
+  "added": [],
+  "neural_seconds": 5.0,
+  "world_seconds": 25.0,
+  "wall_seconds": 33.43145045800338,
+  "action_count": 19,
+  "total_spikes": 3634067,
+  "log": "episode-ec208edb-92a6-4ad1-8d8b-8eae1d002245.jsonl",
+  "checkpoint": "checkpoint-ec208edb-92a6-4ad1-8d8b-8eae1d002245-100-1789303013918383000",
+  "events": [
+    {
+      "time": 1.0,
+      "action": "pick_rice",
+      "result": "Picked up rice.",
+      "success": true,
+      "reward": 0
+    },
+    {
+      "time": 2.0,
+      "action": "pick_carrot",
+      "result": "Could not pick up carrot: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 3.0,
+      "action": "heat_down",
+      "result": "Cannot heat down away from the qazan.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 4.0,
+      "action": "pick_lamb",
+      "result": "Could not pick up lamb: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 5.0,
+      "action": "pick_carrot",
+      "result": "Could not pick up carrot: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 6.0,
+      "action": "pick_spice",
+      "result": "Could not pick up spice: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 7.0,
+      "action": "pick_carrot",
+      "result": "Could not pick up carrot: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 8.0,
+      "action": "pick_garlic",
+      "result": "Could not pick up garlic: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 9.0,
+      "action": "serve",
+      "result": "Cannot serve away from the qazan.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 10.0,
+      "action": "pick_onion",
+      "result": "Could not pick up onion: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 11.0,
+      "action": "pick_spice",
+      "result": "Could not pick up spice: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 12.0,
+      "action": "pick_spice",
+      "result": "Could not pick up spice: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 13.0,
+      "action": "wait",
+      "result": "Waited and sensed the kitchen.",
+      "success": true,
+      "reward": 0
+    },
+    {
+      "time": 16.0,
+      "action": "go_yard",
+      "result": "Arrived at yard.",
+      "success": true,
+      "reward": 0
+    },
+    {
+      "time": 19.0,
+      "action": "go_yard",
+      "result": "Arrived at yard.",
+      "success": true,
+      "reward": 0
+    },
+    {
+      "time": 20.0,
+      "action": "pick_carrot",
+      "result": "Could not pick up carrot: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 21.0,
+      "action": "pick_carrot",
+      "result": "Could not pick up carrot: it must be nearby, with free forelegs.",
+      "success": false,
+      "reward": -0.1
+    },
+    {
+      "time": 24.0,
+      "action": "go_qazan",
+      "result": "Arrived at qazan.",
+      "success": true,
+      "reward": 0
+    },
+    {
+      "time": 25.0,
+      "action": "serve",
+      "result": "Served an unfinished or damaged dish. This attempt failed.",
+      "success": false,
+      "reward": -0.1
+    }
+  ],
+  "note": "Untrained neural readout. No recipe teacher, correction, learning, or automatic success."
+}

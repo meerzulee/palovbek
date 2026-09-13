@@ -1,0 +1,40 @@
+{
+  "name": "palovbek",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 0.0.0.0",
+    "test": "node --experimental-strip-types --test src/*.test.ts",
+    "test:e2e": "playwright test",
+    "dev:local": "node scripts/dev-local.mjs",
+    "assets:prepare": "node scripts/prepare-browser-brain.mjs",
+    "prebuild": "npm run assets:prepare",
+    "check:static": "node scripts/check-static-build.mjs",
+    "deploy": "npm run build && npm run check:static && wrangler deploy",
+    "check:production": "node scripts/verify-production.mjs",
+    "media:record": "node scripts/record-social.mjs",
+    "media:edit": "node scripts/edit-social.mjs"
+  },
+  "dependencies": {
+    "@huggingface/kernels": "0.0.1-preview.1",
+    "lucide-react": "^0.468.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "three": "^0.180.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "@types/node": "^26.5.1",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "@types/three": "^0.180.0",
+    "@vitejs/plugin-react": "^5.0.3",
+    "typescript": "~5.9.2",
+    "vite": "^7.1.7",
+    "wrangler": "4.131.1"
+  }
+}

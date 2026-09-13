@@ -1,0 +1,53 @@
+{
+  "checked_at": "2026-09-13T18:05:11.903094+00:00",
+  "url": "https://plov.mrz.sh",
+  "worker": "plov-fly",
+  "version": "a400901b-c6b1-41de-b06e-1938a9acd051",
+  "http_status": 200,
+  "locale_endpoint": {
+    "http_status": 200,
+    "locale": "ru",
+    "cache_control": "private, no-store"
+  },
+  "unit_tests_passed": 33,
+  "latest_ui_browser_tests_passed": 15,
+  "optional_python_tests_skipped": 2,
+  "complete_browser_cook": {
+    "outcome": "served",
+    "mistakes": 0,
+    "world_seconds": 285.5,
+    "neural_seconds": 11.42,
+    "total_spikes": 11571979,
+    "playback": "1.5 seconds per action; 1.8 seconds for travel, chopping and stirring; slower when compute-bound; fixed simulation timesteps"
+  },
+  "complete_browser_actions": 206,
+  "brain_worker": {
+    "path": "dist/assets/browserBrain.worker-uQVKkxNl.js",
+    "sha256": "a758cc118d8f1bb76e9f44044fcca5ad7c641f4efffe3b6c9de683d408b8008f",
+    "identical_to_full_cook_test": true
+  },
+  "deployed_bundle_sha256": {
+    "dist/index.html": "80a8eb4492bb3099e5fb5ff057b4d9414b76f4e2c4718f82fecc855510f3b71b",
+    "dist/assets/index-DacDvxLZ.css": "ffc9da79d1b9bca5a89eaec12c2e27a3655704bea1b9d45357e801d19043dcc2",
+    "dist/assets/index-NLrooehp.js": "dd06a0c5ee00418ca794529a9902cecd1d6c98749bbf4a40a12539b33748c8e9"
+  },
+  "model_assets_sha256_verified": true,
+  "production_browser_check": "production-browser.json",
+  "mobile_hardware_note": "Touch-enabled mobile browser emulation on an Apple M5; not a physical-phone performance benchmark.",
+  "cloudflared_required": false,
+  "development_machine_required_for_availability": false,
+  "features": [
+    "Palovbek branding",
+    "mobile layout and single-row controls",
+    "centered EN/RU switch",
+    "cobalt porcelain teapot and tea camera",
+    "1.5–1.8 second actions",
+    "smooth flight, pour and lid transitions",
+    "food hidden beneath closed lid",
+    "bilingual Uzbek cooking jokes",
+    "speech above doppi",
+    "layered fire and embers controlled by heat",
+    "waiting foreleg grooming with four planted support legs",
+    "viewport rendering recovery"
+  ]
+}

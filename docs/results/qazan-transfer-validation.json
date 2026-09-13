@@ -1,0 +1,45 @@
+{
+  "recorded_at": "2026-09-13T17:14:57.717904+00:00",
+  "changes": [
+    "early transfers take twice as long at 0.375x playback; other browser actions remain at 0.75x",
+    "temperature, water, ingredients, hydration and lid drive qazan effects",
+    "plov.mrz.sh prepared as a Worker Custom Domain"
+  ],
+  "source_sha256": {
+    "src/playback.ts": "e2b364bfd1741bc10ac82cac059bb3af49dd3eca05fd99c8e21fc6cc1fe00b33",
+    "src/browserBrain.worker.ts": "2d18852f43417929dbc70d04b5a7c74f8af73c658f1e96a825b02fa82e85532b",
+    "src/useNeural.ts": "b9a534eea2f932dbed5a9e6f89e7287be34a137035f64df989f20640f5ffbd1b",
+    "src/neural.ts": "97c78b29c8ffd1191c8c882ac9f6a7ebea3e852a53b823ac7d20181c8dabb064",
+    "src/simulation.ts": "ab77fcb6cbc66958590ae74fea97246d411aa6d5ccc2df89ba0156e3633146f5",
+    "src/useMotionClock.ts": "976f8314fe83754d5de449bbc7a1d2f89821992d6ddd80c74d9447e4b2c50f59",
+    "src/qazanActivity.ts": "39e034d64a1eed6221f1a9c4e01aed7f689167db2a3009b55a8a218fb3de1a0d",
+    "src/zirvak.ts": "289f0d95fe9cee6f4bdf46bfd3f17dc6a5ff9343b086b1ecf32a35e41c3bf799",
+    "src/KitchenScene.tsx": "6eff291bfd6aacb5cc7ba21b63ab9705b601816ddb6ccc3fbca37cfaf910ff40",
+    "wrangler.jsonc": "6b98da3a6db037f71a38d542bf3676cf4b99ddb01e2bcf84066bdd9c6081b112"
+  },
+  "unit_tests_passed": 32,
+  "browser_regression_tests_passed": 12,
+  "full_cook": {
+    "outcome": "served",
+    "mistakes": 0,
+    "world_seconds": 285.5,
+    "neural_seconds": 11.42,
+    "total_spikes": 11571979,
+    "backend": "gpu"
+  },
+  "qazan_test": "Open boiling, paused effect clock, mobile layout, covered steam and reduced motion checked in e2e/qazan.spec.ts. Screenshots in artifacts/zirvak-simmer-desktop.png and artifacts/zirvak-simmer-mobile.png.",
+  "cloudflare": {
+    "cloudflared_installed": "2026.7.3",
+    "tunnel_list_authenticated": true,
+    "plov_tunnel_exists": false,
+    "wrangler_authenticated": true,
+    "zone": "mrz.sh",
+    "zone_status": "active",
+    "recommended_domain": "plov.mrz.sh",
+    "public_dns_result": "NXDOMAIN before deployment",
+    "deployment_dry_run_passed": true,
+    "deployed": false,
+    "dns_modified": false
+  },
+  "note": "All 12 browser regressions and the full real-model wedding cook passed. The qazan visual test was repeated after final bubble visibility and liquid mesh polish; model assets and fixed simulation timesteps are unchanged."
+}

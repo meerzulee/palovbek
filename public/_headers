@@ -1,0 +1,5 @@
+/browser-brain/data/*.dat
+  Content-Type: application/octet-stream
+  Cache-Control: public, max-age=86400
+/browser-brain/kernels/*
+  Cache-Control: public, max-age=86400

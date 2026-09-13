@@ -1,0 +1,63 @@
+import ru from './ru.json' with { type: 'json' };
+import type { Locale } from '../shared/locale.ts';
+
+const words: Record<string, string> = ru;
+const ingredients: Record<string, string> = { oil: 'масло', onion: 'лук', lamb: 'баранина', carrot: 'морковь', spice: 'зира', garlic: 'чеснок', rice: 'рис', quince: 'айва', chickpea: 'нут', raisin: 'изюм', egg: 'перепелиные яйца', qazi: 'казы', quail: 'перепёлки' };
+const units: Record<string, string> = { ml: 'мл', g: 'г', tsp: 'ч. л.', bulbs: 'гол.', pieces: 'шт.', eggs: 'шт.', birds: 'шт.' };
+const stations: Record<string, string> = { prep: 'разделочному столу', qazan: 'казану', yard: 'двору' };
+const amount = (value: string) => value.replace(/\b(ml|g|tsp|bulbs|pieces|eggs|birds)\b/g, unit => units[unit]).replace(/(\d)\.(\d)/g, '$1,$2');
+const ingredient = (id: string) => ingredients[id] ?? words[id] ?? Object.entries(words).find(([key]) => key.toLowerCase() === id)?.[1] ?? id;
+
+// Translate presentation only: original neural snapshots and exported research logs stay intact.
+export function translateText(text: string, locale: Locale): string {
+  if (locale === 'en' || !text) return text;
+  if (words[text]) return words[text];
+  const key = text.trim();
+  if (words[key]) return text.replace(key, words[key]);
+  let m: RegExpMatchArray | null;
+  if ((m = key.match(/^pick (\w+)$/))) return `Берёт: ${ingredient(m[1])}`;
+  if ((m = key.match(/^Paused · (.+)$/))) return `Пауза · ${translateText(m[1], locale)}`;
+  if ((m = key.match(/^Stage (\d+): (.+)\.$/))) return `Этап ${m[1]}: ${translateText(m[2], locale)}.`;
+  if ((m = key.match(/^(.+) goes into the qazan\.$/))) return `В казан отправляется: ${translateText(m[1], locale)}.`;
+  if ((m = key.match(/^(.+) added\. (.+)$/))) return `${translateText(m[1], locale)}: добавлено. ${translateText(m[2], locale)}`;
+  if ((m = key.match(/^Loading · (\d+)%$/))) return `Загрузка · ${m[1]}%`;
+  if ((m = key.match(/^Connectivity verified · (.+) engine ready$/))) return `Связи проверены · ${m[1]} готов`;
+  if ((m = key.match(/^Select (.+)$/))) return `Выбрать: ${translateText(m[1], locale)}`;
+  if ((m = key.match(/^(.+) recipe source$/))) return `Источник рецепта: ${translateText(m[1], locale)}`;
+  if ((m = key.match(/^Picked up ([\d.]+) (\w+) (\w+)\.$/))) return `Взял: ${ingredient(m[3])}, ${amount(`${m[1]} ${m[2]}`)}.`.replace(/\.\.$/, '.');
+  if ((m = key.match(/^Added ([\d.]+) (\w+) (\w+) to the qazan\.$/))) return `Добавил в казан: ${ingredient(m[3])}, ${amount(`${m[1]} ${m[2]}`)}.`;
+  if ((m = key.match(/^Arrived at (\w+)\.$/))) return `Прибыл к ${stations[m[1]] ?? m[1]}.`;
+  if ((m = key.match(/^Fire adjusted to (\d+)%\.$/))) return `Установил огонь на ${m[1]}%.`;
+  if ((m = key.match(/^Add (\w+) to the zirvak\.?$/))) return `Добавить в зирвак: ${ingredient(m[1])}.`;
+  if ((m = key.match(/^Finish with (\w+)\.?$/))) return `При подаче добавить: ${ingredient(m[1])}.`;
+  if ((m = key.match(/^(.*?) ?(\w+)\. Into the qazan you go!$/))) return `${ingredient(m[2])}, ${amount(m[1])} — в казан!`;
+  if ((m = key.match(/^Precious cargo: (.*?) ?(\w+)\. Coming through!$/))) return `Ценный груз: ${ingredient(m[2])}, ${amount(m[1])}. Пропустите!`;
+  if ((m = key.match(/^Holding (.*?) ?(\w+)$/))) return `В лапках: ${ingredient(m[2])}${m[1] ? ', ' + amount(m[1]) : ''}`;
+  if ((m = key.match(/^I have (\w+)\. Now what\?$/))) return `У меня ${ingredient(m[1])}. Что дальше?`;
+  if ((m = key.match(/^Let’s try: (.+)\.$/))) return `Попробуем: ${translateText(m[1], locale)}.`;
+  if ((m = key.match(/^Could not pick up (\w+):.*$/))) return `Не удалось взять: ${ingredient(m[1])}. Нужны свободные лапки и ингредиент рядом.`;
+  if ((m = key.match(/^Cannot (.+) away from the qazan\.$/))) return `Для действия «${translateText(m[1], locale)}» нужно быть у казана.`;
+  if ((m = key.match(/^The (\w+) portion is missing\..*$/))) return `Нет порции: ${ingredient(m[1])}. Начните рецепт заново.`;
+  if ((m = key.match(/^The forelegs hold (\w+), but this step needs (\w+)\..*$/))) return `В лапках: ${ingredient(m[1])}, а сейчас нужно: ${ingredient(m[2])}. Начните рецепт заново.`;
+  if ((m = key.match(/^(.+), added$/))) return `${translateText(m[1], locale)}: добавлено`;
+  if ((m = key.match(/^(.+) is in the qazan$/))) return `${translateText(m[1], locale)} — в казане`;
+  if ((m = key.match(/^Add (.+) to the qazan$/))) return `Добавить в казан: ${ingredient(m[1])}`;
+  if ((m = key.match(/^Add (.+)$/))) return `Добавить: ${amount(m[1]).replace(/\b(oil|onion|lamb|carrot|cumin|garlic|rice)\b/g, id => id === 'cumin' ? 'зира' : ingredient(id))}`;
+  if ((m = key.match(/^(\d+) actions$/))) return `Действий: ${m[1]}`;
+  if ((m = key.match(/^(\d+) mistakes?( so far)?$/))) return `Ошибок: ${m[1]}`;
+  if ((m = key.match(/^Latest (\d+) ms$/))) return `Последние ${m[1]} мс`;
+  if ((m = key.match(/^Spikes \/ (\d+) ms$/))) return `Импульсы / ${m[1]} мс`;
+  if ((m = key.match(/^Each column: (\d+) ms of neural time. Pauses add no marks.$/))) return `Столбец — ${m[1]} мс времени мозга. На паузе новых отметок нет.`;
+  if ((m = key.match(/^(\d+)% of connectivity chunks verified$/))) return `Проверено ${m[1]}% файлов связей`;
+  if ((m = key.match(/^Verifying connectivity chunks (\d+)\/(\d+)…$/))) return `Проверяем файлы связей: ${m[1]}/${m[2]}…`;
+  if (key.startsWith('Browser brain stopped:')) return `Мозг остановлен. ${translateText(key.slice(22).trim().replace(/\. Reload the brain.*$/, ''), locale)} Повторите загрузку.`;
+  if ((m = key.match(/^Could not verify ([^:]+): (.+)\. Completed downloads are saved; retry loading\.?$/))) return `Не удалось проверить ${m[1]}: ${translateText(m[2], locale)} Скачанные файлы сохранены. Повторите загрузку.`;
+  if ((m = key.match(/^Data download failed \(HTTP (\d+)\)\. Please try again later\.?$/))) return `Не удалось скачать данные (HTTP ${m[1]}). Попробуйте позже.`;
+  if ((m = key.match(/^Re-downloading (.+) after an integrity check failed \((.+)\)…$/))) return `Проверка файла ${m[1]} не прошла. Скачиваем снова (${m[2]})…`;
+  if ((m = key.match(/^Download paused · retrying in (\d+)s\. Completed files are kept\.$/))) return `Загрузка на паузе. Повтор через ${m[1]} с. Скачанные файлы сохранены.`;
+  if (key.startsWith('WebGPU unavailable;')) return 'WebGPU недоступен. Используем нейросимуляцию на CPU.';
+  if (key.endsWith('.') && words[key.slice(0, -1)]) return words[key.slice(0, -1)] + '.';
+  if (key.includes(' · ')) return key.split(' · ').map(part => translateText(part, locale)).join(' · ');
+  if (/^[\d.]+ (ml|g|tsp|bulbs|pieces|eggs|birds)$/.test(key)) return amount(key);
+  return text;
+}

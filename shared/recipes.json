@@ -1,0 +1,160 @@
+{
+  "recipes": [
+    {
+      "id": "classic",
+      "name": "Choyxona plov",
+      "subtitle": "The teahouse classic",
+      "description": "Golden rice, browned lamb and carrot matchsticks. The benchmark bowl.",
+      "extras": [],
+      "garnishes": [],
+      "simmer_seconds": 6,
+      "accent": "#8e9a68",
+      "source": "https://www.advantour.com/uzbekistan/uzbek-food/plov.htm",
+      "source_label": "Uzbek plov traditions"
+    },
+    {
+      "id": "quince",
+      "name": "Behili palov",
+      "subtitle": "The quince plot twist",
+      "description": "Fragrant golden quince nestled into the zirvak before the rice.",
+      "extras": [
+        "quince"
+      ],
+      "garnishes": [],
+      "simmer_seconds": 10,
+      "accent": "#c69c40",
+      "source": "https://www.tasteatlas.com/behili-palov",
+      "source_label": "About quince plov"
+    },
+    {
+      "id": "wedding",
+      "name": "To‘y oshi",
+      "subtitle": "A wedding for one fly",
+      "description": "Chickpeas and raisins, finished with quail eggs and qazi. Tiny chef, enormous occasion.",
+      "extras": [
+        "chickpea",
+        "raisin"
+      ],
+      "garnishes": [
+        "egg",
+        "qazi"
+      ],
+      "simmer_seconds": 8,
+      "accent": "#b88164",
+      "source": "https://www.tlca.asia/articles/2",
+      "source_label": "Regional and wedding plov"
+    },
+    {
+      "id": "bedana",
+      "name": "Bedana palov",
+      "subtitle": "The royal quail surprise",
+      "description": "Prepared stuffed quails join the zirvak for a longer simmer, then a blanket of rice.",
+      "extras": [
+        "quail"
+      ],
+      "garnishes": [],
+      "simmer_seconds": 18,
+      "accent": "#a5784f",
+      "source": "https://ovkuse.ru/recipes/4105748",
+      "source_label": "A cook’s bedana recipe"
+    }
+  ],
+  "ingredients": [
+    {
+      "id": "quince",
+      "name": "Quince",
+      "amount": "2, quartered",
+      "color": "#deb64f",
+      "note": "Cored and quartered; simmered in the zirvak."
+    },
+    {
+      "id": "chickpea",
+      "name": "Chickpeas",
+      "amount": "100 g, soaked",
+      "color": "#d8bd7c",
+      "note": "Pre-soaked chickpeas, ready for the qazan."
+    },
+    {
+      "id": "raisin",
+      "name": "Raisins",
+      "amount": "50 g",
+      "color": "#775347",
+      "note": "Little sweet pockets among the golden grains."
+    },
+    {
+      "id": "egg",
+      "name": "Quail eggs",
+      "amount": "4, boiled",
+      "color": "#efe2b6",
+      "note": "Already boiled and peeled; added after steaming."
+    },
+    {
+      "id": "qazi",
+      "name": "Qazi",
+      "amount": "100 g, cooked",
+      "color": "#915a45",
+      "note": "Prepared horse-meat sausage slices, added when serving."
+    },
+    {
+      "id": "quail",
+      "name": "Stuffed quail",
+      "amount": "2, prepared",
+      "color": "#bb8050",
+      "note": "Cleaned and stuffed before the episode; braised in the zirvak."
+    }
+  ],
+  "quantities": {
+    "oil": {
+      "value": 150,
+      "unit": "ml"
+    },
+    "onion": {
+      "value": 200,
+      "unit": "g"
+    },
+    "lamb": {
+      "value": 500,
+      "unit": "g"
+    },
+    "carrot": {
+      "value": 500,
+      "unit": "g"
+    },
+    "spice": {
+      "value": 2,
+      "unit": "tsp"
+    },
+    "garlic": {
+      "value": 2,
+      "unit": "bulbs"
+    },
+    "rice": {
+      "value": 500,
+      "unit": "g"
+    },
+    "quince": {
+      "value": 2,
+      "unit": "pieces"
+    },
+    "chickpea": {
+      "value": 100,
+      "unit": "g"
+    },
+    "raisin": {
+      "value": 50,
+      "unit": "g"
+    },
+    "egg": {
+      "value": 4,
+      "unit": "eggs"
+    },
+    "qazi": {
+      "value": 100,
+      "unit": "g"
+    },
+    "quail": {
+      "value": 2,
+      "unit": "birds"
+    }
+  }
+}

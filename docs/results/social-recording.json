@@ -1,0 +1,75 @@
+{
+  "source": "Actual browser simulation; no scripted demo or synthetic spike counters.",
+  "editing": "Selected normal-speed moments, joined with cuts. Waiting time omitted. No audio track.",
+  "recorded_at": "2026-09-13T18:26:33.876Z",
+  "neurons": 166700,
+  "connections": 25582938,
+  "outcome": "served",
+  "total_spikes": 10020930,
+  "mistakes": 0,
+  "backend": "gpu",
+  "clips": [
+    {
+      "name": "fire-and-foreleg-grooming",
+      "start": 16.783,
+      "duration": 3
+    },
+    {
+      "name": "onion-into-hot-oil",
+      "start": 61.145999999999994,
+      "duration": 3.4
+    },
+    {
+      "name": "browning-and-stirring",
+      "start": 73.428,
+      "duration": 3.4
+    },
+    {
+      "name": "chopping-carrots",
+      "start": 126.66,
+      "duration": 4.5
+    },
+    {
+      "name": "carrots-into-the-qazan",
+      "start": 133.12300000000002,
+      "duration": 3.2
+    },
+    {
+      "name": "simmering-zirvak",
+      "start": 156.144,
+      "duration": 3.5
+    },
+    {
+      "name": "layering-rice",
+      "start": 168.98899999999998,
+      "duration": 3.2
+    },
+    {
+      "name": "lid-and-steam",
+      "start": 221.148,
+      "duration": 3.2
+    },
+    {
+      "name": "osh-tayyor",
+      "start": 307.699,
+      "duration": 4.2
+    }
+  ],
+  "export": {
+    "programs": [],
+    "stream_groups": [],
+    "streams": [
+      {
+        "codec_name": "h264",
+        "width": 1080,
+        "height": 1920,
+        "pix_fmt": "yuv420p",
+        "avg_frame_rate": "30/1"
+      }
+    ],
+    "format": {
+      "duration": "31.466016",
+      "size": "9328796"
+    }
+  }
+}

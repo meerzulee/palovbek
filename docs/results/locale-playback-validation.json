@@ -1,0 +1,59 @@
+{
+  "recorded_at": "2026-09-13T16:55:43.373723+00:00",
+  "change": "Russian interface, country language defaults, and 0.75x cooking playback",
+  "source_sha256": {
+    "src/App.tsx": "bbc89c5d55818b5063cd03e6fb15578e56f8b6a326f029bf7708db56bcb4f804",
+    "src/i18n.tsx": "386717d563a956228a4ab38f34a536c2c29abe5d85b33882469a3d1c40596e07",
+    "src/translation.ts": "57f871bd0ec3b4af810dfbe65032f1481542d2431246719bfc0d84e6994fdbd5",
+    "src/ru.json": "edb3c42ceb6671d0a5ab4712720e0820a6fc0c3ee0a6623102a33d659ea3d053",
+    "src/playback.ts": "77fbbd17b60c7ced47dc9d185b54b83ea62c04158ac11532e2584f113cf0012f",
+    "src/browserBrain.worker.ts": "bc569669a89e574e5d2e5c5ae54b3808a398d9d62ac9e703f8c3ffcb3976f984",
+    "src/useNeural.ts": "3721e7cb5d11f88d2355c6411cd78f6e8aaece65eefa8ab2d2f0d2b7be5c5a62",
+    "src/useMotionClock.ts": "b6234a06ef78fa256e2d547744ac06e38fdae2e6fe7a5ce8fe94bb0e91f46a1e",
+    "src/BrainLoadDialog.tsx": "202a61f5e9a85cd7ad57b556531fb741989f6ce9be94efccf5440b48b4b171ea",
+    "src/KitchenToolbar.tsx": "5d459659c886bd5122caa947da7a01698fbe9d07e9d6f6766a7bac195abde122",
+    "src/NeuralDashboard.tsx": "13084ccf0edf76649c96bc8239d5a52dba5e22202312fad2217bfab828227c4f",
+    "src/NeuralControls.tsx": "2e55d311cb79ba63564455fa44b6f68058c356fe7a28f1a463d9feda129319f7",
+    "src/CookingLog.tsx": "3b71f9ec4f5fef98c4b0987c63ab992cac2dc8a2277b6bfc97e52ef0191441b0",
+    "src/minimal.css": "92b9867bd12868e79899676cd54557619a009b66bfd79821bdc2d1585d93a220",
+    "shared/locale.ts": "2bd0746e10cdc045b694c669c9dd1033edc98227220a920721dd7afd4f97b20e",
+    "worker/index.ts": "b12340ce1022aa49b9375aac9af99e90801f4459bca63529ae45dfd083c4f517",
+    "wrangler.jsonc": "96c7540b75646317d9fd1d41e150486d6869acaafa948cb5bb7c078d4875234e"
+  },
+  "validation": {
+    "unit_tests_passed": 29,
+    "browser_checks_passed": 12,
+    "browser_checks_note": "8 original checks and 4 locale checks passed across targeted runs. One scripted-demo check initially saw an idle WebGL frame after a full-page capture; its standalone rerun passed. Final copy and wrap fixes were checked with all 4 locale tests, 4 UI regressions, and a real Russian wedding scene at desktop/mobile sizes.",
+    "production_build": true,
+    "static_model_hashes_valid": true,
+    "cloudflare_deploy_dry_run": true,
+    "deployed": false,
+    "russian_defaults": [
+      "AM",
+      "AZ",
+      "BY",
+      "KZ",
+      "KG",
+      "MD",
+      "RU",
+      "TJ",
+      "TM",
+      "UZ"
+    ],
+    "language_switch_keeps_run_id_and_elapsed": true,
+    "full_cook": {
+      "outcome": "served",
+      "backend": "gpu",
+      "world_seconds": 285.5,
+      "neural_seconds": 11.42,
+      "total_spikes": 11571979,
+      "mistakes": 0
+    },
+    "full_cook_action_count": 206,
+    "screenshots": [
+      "artifacts/russian-loader-mobile.png",
+      "artifacts/russian-cooking-desktop.png",
+      "artifacts/russian-cooking-mobile.png"
+    ]
+  }
+}

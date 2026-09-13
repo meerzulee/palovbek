@@ -1,0 +1,103 @@
+{
+  "experiment": "Pinned upstream sugar sensory stimulation and outgoing-synapse silencing",
+  "dataset": "FlyWire v630",
+  "reference_commit": "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960",
+  "reference_model_sha256": "fc45837d7122c6ce2a7f3f2f23c515992e4b232aadb919efabb72337fac88e4e",
+  "upstream_code_modified": false,
+  "python": "3.12.12",
+  "platform": "macOS-26.6.1-arm64-arm-64bit",
+  "brian2": "2.10.1",
+  "neurons": 127400,
+  "simulated_seconds_per_trial": 1.0,
+  "trials_per_condition": 3,
+  "results": [
+    {
+      "condition": "no_input",
+      "seed": 1000,
+      "mn9_hz": 0.0,
+      "total_spikes": 0,
+      "active_neurons": 0,
+      "wall_seconds": 38.11936787500599,
+      "rss_bytes": 666501120
+    },
+    {
+      "condition": "no_input",
+      "seed": 1001,
+      "mn9_hz": 0.0,
+      "total_spikes": 0,
+      "active_neurons": 0,
+      "wall_seconds": 28.865455042003305,
+      "rss_bytes": 814252032
+    },
+    {
+      "condition": "no_input",
+      "seed": 1002,
+      "mn9_hz": 0.0,
+      "total_spikes": 0,
+      "active_neurons": 0,
+      "wall_seconds": 31.109327665995806,
+      "rss_bytes": 615088128
+    },
+    {
+      "condition": "sugar_100Hz",
+      "seed": 1000,
+      "mn9_hz": 61.0,
+      "total_spikes": 9870,
+      "active_neurons": 364,
+      "wall_seconds": 32.22953554199921,
+      "rss_bytes": 718962688
+    },
+    {
+      "condition": "sugar_100Hz",
+      "seed": 1001,
+      "mn9_hz": 66.0,
+      "total_spikes": 9865,
+      "active_neurons": 361,
+      "wall_seconds": 31.23829399999522,
+      "rss_bytes": 1063878656
+    },
+    {
+      "condition": "sugar_100Hz",
+      "seed": 1002,
+      "mn9_hz": 69.0,
+      "total_spikes": 10021,
+      "active_neurons": 367,
+      "wall_seconds": 28.775027333002072,
+      "rss_bytes": 1413332992
+    },
+    {
+      "condition": "sugar_outputs_silenced",
+      "seed": 1000,
+      "mn9_hz": 0.0,
+      "total_spikes": 2075,
+      "active_neurons": 21,
+      "wall_seconds": 31.27714029100025,
+      "rss_bytes": 1375649792
+    },
+    {
+      "condition": "sugar_outputs_silenced",
+      "seed": 1001,
+      "mn9_hz": 0.0,
+      "total_spikes": 2144,
+      "active_neurons": 21,
+      "wall_seconds": 24.765044749998196,
+      "rss_bytes": 1614970880
+    },
+    {
+      "condition": "sugar_outputs_silenced",
+      "seed": 1002,
+      "mn9_hz": 0.0,
+      "total_spikes": 2168,
+      "active_neurons": 21,
+      "wall_seconds": 25.280914333998226,
+      "rss_bytes": 1697939456
+    }
+  ],
+  "checks": {
+    "no_input_is_silent": true,
+    "sugar_reaches_mn9": true,
+    "silencing_reduces_mn9": true
+  },
+  "scope": "Example protocol reproduction; not all paper figures or validation of MaleCNS/cooking.",
+  "report_note": "Trial records recovered unchanged from JSON stdout after a NumPy boolean JSON serialization error in the report writer; writer fixed."
+}

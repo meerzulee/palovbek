@@ -1,0 +1,137 @@
+{
+  "utc": "2026-09-13T14:47:22.568915+00:00",
+  "environment": {
+    "platform": "macOS-26.6.1-arm64-arm-64bit-Mach-O",
+    "machine": "Apple M5, 24 GiB RAM",
+    "node": "v26.8.2",
+    "browser": "Google Chrome 152",
+    "static_host": "Wrangler 4.131.1 local Workers Static Assets on port 8787"
+  },
+  "checks": {
+    "frontend_unit": {
+      "command": "npm test",
+      "passed": 26,
+      "failed": 0
+    },
+    "python_unit": {
+      "command": ".venv/bin/python -m pytest brain/tests",
+      "passed": 27,
+      "failed": 0
+    },
+    "python_lint": {
+      "command": ".venv/bin/ruff check brain",
+      "passed": true
+    },
+    "typecheck_build": {
+      "command": "npm run build",
+      "passed": true,
+      "warnings": [
+        "Three.js chunk exceeds Vite 500 kB warning threshold; build succeeds"
+      ]
+    },
+    "static_assets": {
+      "command": "npm run check:static",
+      "files": 67,
+      "total_bytes": 80457157,
+      "largest_asset_bytes": 5441391,
+      "model_hashes_valid": true
+    },
+    "cloudflare_dry_run": {
+      "command": "npx wrangler deploy --dry-run",
+      "passed": true,
+      "deployed": false
+    },
+    "browser_e2e": {
+      "command": "PLAYWRIGHT_BASE_URL=http://localhost:8787 npx playwright test e2e/browser.spec.ts e2e/kitchen.spec.ts",
+      "passed": 6,
+      "failed_remaining": 0,
+      "note": "Five passed in the initial production suite; one demo pause assertion sampled before the canvas painted the pause. Added a wait for the committed pause and two render frames, then reran that test successfully. No application code changed after the production build."
+    },
+    "local_python_e2e": {
+      "run": false,
+      "reason": "Previous Python brain was stopped at user request; no full local server restarted."
+    },
+    "react_doctor": {
+      "command": "npx react-doctor@latest --verbose",
+      "score": 74,
+      "errors": 0,
+      "warnings": 15,
+      "note": "Remaining findings concern component complexity, short bounded array lookups, renderer initialization, a small ref initializer, and dependent GPU validation awaits."
+    },
+    "vendored_numerical_audit": {
+      "command": "node scripts/audit-browser-engine.mjs",
+      "passed": true,
+      "report": "browser-engine-audit.json",
+      "note": "Recurrence changes downstream spikes; 257-cell GPU reference fixture passes. Complete-graph GPU/CPU LC9 counts differ by one spike at one cell."
+    }
+  },
+  "complete_recipe": {
+    "seed": 17,
+    "backend": "gpu",
+    "outcome": "served",
+    "world_seconds": 285.5,
+    "neural_seconds": 11.42,
+    "total_spikes": 11571979,
+    "mistakes": 0,
+    "ingredients": [
+      "oil",
+      "onion",
+      "lamb",
+      "carrot",
+      "spice",
+      "garlic",
+      "chickpea",
+      "raisin",
+      "rice",
+      "egg",
+      "qazi"
+    ]
+  },
+  "completed_actions": 206,
+  "source_sha256": {
+    "package-lock.json": "7abe9f30840c982cc9e0ab80bf0455ccf81c216fa2c719768b6c714b8d4c08e0",
+    "shared/recipes.json": "aeb7722a4e27a38e0f14c174382c6155a5b8d027393a93cb7c58be58b7133d87",
+    "src/App.tsx": "d19cd9ffa82d862a8a17cd875a427e530fcb54022206e5d8254f315f79d03da2",
+    "src/BrainLoadDialog.tsx": "11212055c3411b1876b24c2d50198d742c43cdf3e333252e01ad516a5ad3f46c",
+    "src/BrainPanel.tsx": "ae3767fdf2b2048a84eb6aace35d1864806b1354bed0e84bbf8c881d4b1a1727",
+    "src/CookingLog.tsx": "d50026d3fd06613eafdfab6877269d5d972c76f1ef8c88224b638dea18226690",
+    "src/KitchenScene.tsx": "f6d63508e872447371cb4de6f4ff68680fc374115fc687d39261105d2ca69dec",
+    "src/NeuralBrainPanel.tsx": "15ca307e34f29eabc367b657f8be260ec535cbfc7a2b10c471fc4d0bf15a1cac",
+    "src/NeuralControls.tsx": "28488a209d547b24b3db15b3dbd219ac97da534226d8310fc830dc3e3a3cef06",
+    "src/NeuralDashboard.tsx": "5e99730d6135f6a168ff7bf0b5091de534e13398e90480c8808a09fdb5d7df00",
+    "src/brainLoader.css": "e1717c3da6bd78287e88a5cd5474ff48ed768329280127147adb17d851bc3e25",
+    "src/browserBrain.worker.ts": "7c4c5b412b753cbc7eb61ffcb44e065a46b55f03289a88d740f1623ac784ef4d",
+    "src/browserKitchen.test.ts": "6235810ee796975356a5cc746b90cf2f8a774d7e0a2bdbb82d96838d4727a091",
+    "src/browserKitchen.ts": "4f5350a1047625038cfe53e254a85d73518e72b3302dd2fff799d680b3221e39",
+    "src/chefPerformance.test.ts": "86c8fa4ecae575715830b53e8e6a36d3c45553e6fafd8a0d3cbc04c7b1408839",
+    "src/chefPerformance.ts": "0bf4f569f75f32d95e11b220d7376c78a747a31600db27fe92b6bfe31238c7c3",
+    "src/doppi.ts": "e4ee019d1fd669a93a57d743ccde9916cfa8640bf399a8517193e6f35561e313",
+    "src/flyRig.ts": "88f8636246795886bfc080dd7c4d7ff2ed4d88473b6b661310ab0d57602a567e",
+    "src/illustrations.tsx": "af023e8ca182409faed1b183ee829eab7714d2ff61de0a25b83cf4a6daf0596d",
+    "src/kitchenDetails.ts": "62f6a5090fe6d22906ba62d633c35c7761ddc2482800a2232769d00cf6cea279",
+    "src/lab.css": "8d0085a77033c6043d7a5d390a9a69eae0034e31606ce32102c9755ff815cf53",
+    "src/main.tsx": "5d05ebd25f87cc2b881e6f9ea7cf24c19d72d041661b31389bc87ab9ce9284e5",
+    "src/neural.test.ts": "dc8c3f1bd2de02fbe92d0ecc8c99d12ad172a0fd4bccb0227e9974b6debb3176",
+    "src/neural.ts": "f2ea56acb05f86ee3a13a81cede060408bed2e00578f68d6fffb5fbb0eccdbd1",
+    "src/neuralChoice.ts": "0bc0ea4db56c68e57ee54067ce4554bb9af8e0e4c17ec56937a741cb2021babd",
+    "src/recipeFood.ts": "0b06c942b2a82ee5376df2b2380a558418fe77b5b6263bc0e4303ed462cb534f",
+    "src/recipes.ts": "6466eead9a1ab4c0293b89d2e04cd1c8f78991504e68c2e1706eec310014ce82",
+    "src/simulation.test.ts": "ff87c4130804b12d9630cbb1d7725f07cef9e5f5fc2da6be8af0b71a85c355c9",
+    "src/simulation.ts": "ba8d86050805fe2033ef61af57312cf3e3fa1b25e13be0a77d44c66adf674ce1",
+    "src/styles.css": "de952186c49d676831c5af5482d3bce03bf88370e0fc8fbd9ebc6b5e7b534a41",
+    "src/useMotionClock.ts": "c9ca13231bd49074c736f3c24152f73bdab46f772ad783fc25fc548178ca69c3",
+    "src/useNeural.ts": "b99b0966a20bdfd8109a13443e2f796d684179e24e03a54a17e32fa9f901640a",
+    "src/vendor/xenova/brain-gpu.js": "2628cfa77b5f29920eb2feb1ab15a11d7dfba71be329c92a168184871286cad1",
+    "src/vendor/xenova/brain.js": "2dc6fdd9407c9dfb52eb8536a1192d3a320951dfa4e7777807c8657c4f4bf9c2",
+    "src/vendor/xenova/data-loader.js": "6afe752d9e01cae9a28b6748b1fb7db282f302cdd8a144f9792a2bc3927a8909",
+    "src/vendor/xenova/gpu-check.js": "ddb3175e555d4e24299e0e8a4384cc9fc93701ed8f09459956dc86db02e1a43a",
+    "src/vendor/xenova/propagate-sparse.wgsl": "f1ebdeebfdc9cc88140a848fb3a7a3c0692aa49079a96fab5fca7113967e0197",
+    "src/vendor/xenova/stimulus.js": "f8fd76fa135e11bbbcd751b3b05653ce27efc281c7f3d20443c1e2c2e720137c",
+    "wrangler.jsonc": "b5eae53b873d8f31f6eccfb563cdef3715da1f3c5b11f5092ea533172d5599ba"
+  },
+  "limitations": [
+    "Numerical and cooking checks do not establish biological validity or learned cooking.",
+    "Mobile viewport checked on desktop Chrome; low-memory phone performance is not measured.",
+    "No Cloudflare account deployment performed."
+  ]
+}

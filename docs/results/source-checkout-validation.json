@@ -1,0 +1,8 @@
+{
+  "source_only": true,
+  "fresh_model_download": true,
+  "npm_ci": true,
+  "unit_tests": 33,
+  "build": true,
+  "static_integrity": true
+}

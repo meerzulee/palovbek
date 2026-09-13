@@ -1,0 +1,48 @@
+{
+  "experiment": "Pinned upstream sugar sensory stimulation and outgoing-synapse silencing",
+  "dataset": "FlyWire v630",
+  "reference_commit": "91bdd1e7dcf193f3e7ca5a8933497fcef63b7960",
+  "reference_model_sha256": "fc45837d7122c6ce2a7f3f2f23c515992e4b232aadb919efabb72337fac88e4e",
+  "upstream_code_modified": false,
+  "python": "3.12.12",
+  "platform": "macOS-26.6.1-arm64-arm-64bit",
+  "brian2": "2.10.1",
+  "neurons": 127400,
+  "simulated_seconds_per_trial": 0.1,
+  "trials_per_condition": 1,
+  "results": [
+    {
+      "condition": "no_input",
+      "seed": 1000,
+      "mn9_hz": 0.0,
+      "total_spikes": 0,
+      "active_neurons": 0,
+      "wall_seconds": 1.7205295000021579,
+      "rss_bytes": 1016217600
+    },
+    {
+      "condition": "sugar_100Hz",
+      "seed": 1000,
+      "mn9_hz": 60.0,
+      "total_spikes": 1026,
+      "active_neurons": 322,
+      "wall_seconds": 21.17056141699868,
+      "rss_bytes": 831340544
+    },
+    {
+      "condition": "sugar_outputs_silenced",
+      "seed": 1000,
+      "mn9_hz": 0.0,
+      "total_spikes": 211,
+      "active_neurons": 21,
+      "wall_seconds": 24.726384457993845,
+      "rss_bytes": 493338624
+    }
+  ],
+  "scope": "Reproduction of the example stimulation protocol; not a reproduction of all paper figures or validation of MaleCNS/cooking.",
+  "checks": {
+    "no_input_is_silent": true,
+    "sugar_reaches_mn9": true,
+    "silencing_reduces_mn9": true
+  }
+}

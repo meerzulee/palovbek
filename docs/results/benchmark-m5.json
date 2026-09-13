@@ -1,0 +1,125 @@
+{
+  "environment": {
+    "utc": "2026-09-13T12:54:09.505003+00:00",
+    "platform": "macOS-26.6.1-arm64-arm-64bit",
+    "machine": "arm64",
+    "python": "3.12.12",
+    "cpu_count": 10,
+    "ram_bytes": 25769803776,
+    "implementation_sha256": {
+      "brain/__init__.py": "e7e5d44622d879167de28a1abba9bcc69e9d6229f62b7027a25aa315200a1306",
+      "brain/benchmark.py": "625ce730c483491912643b95f3aa76ee4f909f8e009a8760591a03150637544e",
+      "brain/connectome.py": "eb3c91551a8ffcbcae19834d7a402a4e52e03b0409e29a3565395745088405d9",
+      "brain/decoder.py": "3a5a882f4bebe599e8d3ed86621fb41aeeca96a15293b9310287f57ba3f7a14b",
+      "brain/kitchen.py": "0b644db184138e38dc9c9ff3fe6f8d4792c3c6c53b4c63ec3ff52e7073b15785",
+      "brain/model.py": "837fba0c0c8e4a08acec39654b70c11a37e2a993f0fe78cc9235b1cb1c27b495",
+      "brain/reference.py": "b8cf41504247621fe6396a1a52da73adfe30f269a2c44f8679ab4f1937559a2f",
+      "brain/server.py": "f6dab64c39daa2f741d4446fbe7cd10ecd6569a5dafa601d2a766bef1499c0df",
+      "brain/session.py": "580c21e73473dfaa850459aeb5f2cfb6856f2efdbd2f9314545ee0df6d84475d",
+      "brain/sources.py": "de5d70392f1a3dafeffb4d4e34bdf85c9852d83a05968996f300ddae93caeb42"
+    },
+    "versions": {
+      "numpy": "2.5.3",
+      "numba": "0.67.0",
+      "brian2": "2.10.1",
+      "scipy": "1.18.1",
+      "pyarrow": "23.0.1"
+    }
+  },
+  "engine": "male-cns-lif-v1",
+  "seed": 17,
+  "neurons": 167216,
+  "weighted_edges": 25587572,
+  "parameters": {
+    "dt_ms": 0.1,
+    "rest_mv": -52,
+    "reset_mv": -52,
+    "threshold_mv": -45,
+    "membrane_ms": 20,
+    "synapse_ms": 5,
+    "refractory_ms": 2.2,
+    "delay_ms": 1.8,
+    "weight_mv": 0.275,
+    "input_factor": 250
+  },
+  "first_window_wall_seconds": 0.2128866669954732,
+  "neural_seconds": 1.0,
+  "wall_seconds": 2.5719174170008046,
+  "simulated_seconds_per_wall_second": 0.3888149725919785,
+  "window_wall_seconds": [
+    0.11813850000180537,
+    0.13059450000582729,
+    0.12875204099691473,
+    0.1337960830060183,
+    0.1336885419950704,
+    0.13261966699792538,
+    0.13327045800542692,
+    0.1309326249975129,
+    0.13490054200519808,
+    0.13770070900500286,
+    0.12774495800113073,
+    0.12496145800105296,
+    0.12452041700453265,
+    0.12470866700459737,
+    0.12427841700264253,
+    0.12600891700276406,
+    0.12741329099662835,
+    0.12838662499416387,
+    0.12432650000118883,
+    0.12515629200061085
+  ],
+  "rss_bytes": 463273984,
+  "process_peak_rss_bytes": 463273984,
+  "finite_state": true,
+  "telemetry": {
+    "simulated_seconds": 1.0,
+    "window_seconds": 0.05,
+    "total_spikes": 716505,
+    "window_spikes": 37112,
+    "active_neurons": 9186,
+    "population_hz": [
+      6.770362936945977,
+      4.116479782534828,
+      7.0737435415688115
+    ]
+  },
+  "graph_hashes": {
+    "sample.npy": {
+      "bytes": 6840,
+      "sha256": "44a42bb97e1a2e9d437fa3533ca4edc446094a607dd90422fe5e7236081e5c49"
+    },
+    "cells.json": {
+      "bytes": 343919,
+      "sha256": "0cbd2802e319e048ad69579bc1016e4ee36eed44460c0fa0f556fa9086a29659"
+    },
+    "sensory.npy": {
+      "bytes": 71876,
+      "sha256": "d5796fc3e03797a6354f47d59c15ce112920d86315a220e866158d564024c7c0"
+    },
+    "ids.npy": {
+      "bytes": 1337856,
+      "sha256": "8d0b901c27b6bc9df1928430920161f0cad890a5e292ac9d7360f196586164d5"
+    },
+    "channels.json": {
+      "bytes": 39538,
+      "sha256": "2c8e479b72cdd422c7b7a9686aa524fe17fd5ae16ace80cfaa8e339bf4279870"
+    },
+    "posts.npy": {
+      "bytes": 102350416,
+      "sha256": "2a8c05c602e7ff144c4e107a0d9c560e97d74f9a4ed561ef9c6e516bc35602b4"
+    },
+    "weights.npy": {
+      "bytes": 204700704,
+      "sha256": "1318710face8132095c409f65e109c988cf8eb897b9d340e663b0c9dd7901933"
+    },
+    "indptr.npy": {
+      "bytes": 1337864,
+      "sha256": "0b5f334aa34a05677341c215fd31916fe08be630066ab5455e545cabb0cc216d"
+    },
+    "outputs.npy": {
+      "bytes": 8644,
+      "sha256": "968d05560304fdfb64351a325354bdd0babb04c204259afb306c577108d92f33"
+    }
+  },
+  "note": "One CPU process; no GPU. Warm kernel, constant prep cues, no rendering. Not a hosting capacity guarantee."
+}

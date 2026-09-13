@@ -1,0 +1,141 @@
+{
+  "import_version": 1,
+  "dataset": "MaleCNS v1.0",
+  "license": "CC-BY-4.0",
+  "source": "https://male-cns.janelia.org/download/",
+  "source_lock": {
+    "annotations": {
+      "url": "https://storage.googleapis.com/flyem-male-cns/v1.0/connectome-data/flat-connectome/body-annotations-male-cns-v1.0-minconf-0.5.feather",
+      "path": "male-cns/body-annotations.feather",
+      "bytes": 14483314,
+      "sha256": "2177e246113e4cfbf1e7772ec37c6da1955ff22e8063d0b1f833101f99a9a3b2"
+    },
+    "neurotransmitters": {
+      "url": "https://storage.googleapis.com/flyem-male-cns/v1.0/connectome-data/flat-connectome/body-neurotransmitters-male-cns-v1.0.feather",
+      "path": "male-cns/body-neurotransmitters.feather",
+      "bytes": 43282834,
+      "sha256": "95c9289220663abeb3409f3ad9e5a7f8a53f8093f5139d15502cd08da8879621"
+    },
+    "connections": {
+      "url": "https://storage.googleapis.com/flyem-male-cns/v1.0/connectome-data/flat-connectome/connectome-weights-male-cns-v1.0-minconf-0.5.feather",
+      "path": "male-cns/connectome-weights.feather",
+      "bytes": 1051241946,
+      "sha256": "e35da783d1c686b2b58b3b87cd6a403ae43bfcfba8bff28e08ef752c1a56afc1"
+    },
+    "reference_neurons": {
+      "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/2023_03_23_completeness_630_final.csv",
+      "path": "reference/completeness.csv",
+      "bytes": 3057611,
+      "sha256": "e6b71e17671a9bdb05f55e4bc6774640a1418cb7a05125e0fc994ad40f9bfdfb"
+    },
+    "reference_connections": {
+      "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/2023_03_23_connectivity_630_final.parquet",
+      "path": "reference/connectivity.parquet",
+      "bytes": 86630944,
+      "sha256": "94db8c650533bc36ffa3223f2e62325d5648b8d6bd31c3a4e1c804628c7557b3"
+    },
+    "reference_model": {
+      "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/model.py",
+      "path": "reference/model.py",
+      "bytes": 11900,
+      "sha256": "fc45837d7122c6ce2a7f3f2f23c515992e4b232aadb919efabb72337fac88e4e"
+    },
+    "reference_notebook": {
+      "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/example.ipynb",
+      "path": "reference/example.ipynb",
+      "bytes": 10282,
+      "sha256": "1737c3043af700504c4791c4bfc02d1856bbeb0d36c469832e4b9399dfddda3a"
+    },
+    "reference_license": {
+      "url": "https://raw.githubusercontent.com/philshiu/Drosophila_brain_model/91bdd1e7dcf193f3e7ca5a8933497fcef63b7960/LICENSE",
+      "path": "reference/LICENSE",
+      "bytes": 1085,
+      "sha256": "3621f6d6476189190e2960fa43f11b275ba4eca848fdac50a1ba2925de6223e8"
+    }
+  },
+  "selection": "status == Traced OR superclass is not null; all edges with both selected endpoints and weight > 0; no task-specific graph crop",
+  "neurons": 167216,
+  "annotated_bodies": 211577,
+  "excluded_annotated_bodies": 44361,
+  "selected_status_counts": {
+    "Traced": 165122,
+    "unlabelled": 2002,
+    "Anchor": 60,
+    "Orphan": 32
+  },
+  "source_pair_rows": 151856684,
+  "retained_pair_rows": 25587572,
+  "csr_edges": 25587572,
+  "source_synapse_weight_sum": 311833243,
+  "retained_synapse_weight_sum": 124193283,
+  "zero_fast_current_edges": 1114935,
+  "transmitter_counts": {
+    "acetylcholine": 103746,
+    "glutamate": 29303,
+    "gaba": 22073,
+    "histamine": 7897,
+    "unclear": 3142,
+    "unknown": 514,
+    "dopamine": 392,
+    "octopamine": 101,
+    "serotonin": 48
+  },
+  "fast_current_signs": {
+    "acetylcholine": 1,
+    "gaba": -1,
+    "glutamate": -1,
+    "all_other_or_unknown": 0
+  },
+  "sensory_neurons": 17937,
+  "output_neurons": 2129,
+  "sample_neurons": 1678,
+  "soma_transform": {
+    "source_units": "8 nm EM voxels",
+    "center": [
+      48092.0,
+      36247.0,
+      72687.0
+    ],
+    "scale": 50870.833333333336,
+    "display_axes": "x,-z,y"
+  },
+  "wall_seconds": 4.713441958003386,
+  "files": {
+    "sample.npy": {
+      "bytes": 6840,
+      "sha256": "44a42bb97e1a2e9d437fa3533ca4edc446094a607dd90422fe5e7236081e5c49"
+    },
+    "cells.json": {
+      "bytes": 343919,
+      "sha256": "0cbd2802e319e048ad69579bc1016e4ee36eed44460c0fa0f556fa9086a29659"
+    },
+    "sensory.npy": {
+      "bytes": 71876,
+      "sha256": "d5796fc3e03797a6354f47d59c15ce112920d86315a220e866158d564024c7c0"
+    },
+    "ids.npy": {
+      "bytes": 1337856,
+      "sha256": "8d0b901c27b6bc9df1928430920161f0cad890a5e292ac9d7360f196586164d5"
+    },
+    "channels.json": {
+      "bytes": 39538,
+      "sha256": "2c8e479b72cdd422c7b7a9686aa524fe17fd5ae16ace80cfaa8e339bf4279870"
+    },
+    "posts.npy": {
+      "bytes": 102350416,
+      "sha256": "2a8c05c602e7ff144c4e107a0d9c560e97d74f9a4ed561ef9c6e516bc35602b4"
+    },
+    "weights.npy": {
+      "bytes": 204700704,
+      "sha256": "1318710face8132095c409f65e109c988cf8eb897b9d340e663b0c9dd7901933"
+    },
+    "indptr.npy": {
+      "bytes": 1337864,
+      "sha256": "0b5f334aa34a05677341c215fd31916fe08be630066ab5455e545cabb0cc216d"
+    },
+    "outputs.npy": {
+      "bytes": 8644,
+      "sha256": "968d05560304fdfb64351a325354bdd0babb04c204259afb306c577108d92f33"
+    }
+  }
+}

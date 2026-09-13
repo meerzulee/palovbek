@@ -1,0 +1,66 @@
+{
+  "date_utc": "2026-09-13T12:57:26.068567+00:00",
+  "python_tests": {
+    "passed": 19,
+    "command": "uv run --frozen pytest"
+  },
+  "typescript_tests": {
+    "passed": 12,
+    "command": "npm test"
+  },
+  "browser_tests": {
+    "passed": 5,
+    "command": "NEURAL_E2E=1 npm run test:e2e",
+    "execution": "3 existing demo tests passed in the first run; after fixing neural connection handling, both neural tests passed on rerun. Desktop 1440px and mobile 390px, local Chrome."
+  },
+  "build": "passed",
+  "ruff": "passed",
+  "reference_checks": "3/3 passed in original 9 trials and a separate 3-trial report-writer smoke test",
+  "full_graph_causality_checks": "4/4 passed across seeds 17, 29, 43",
+  "repeatability": "Two independent seed-17 episodes matched outcomes, actions, simulation times and total spikes.",
+  "review_notes": [
+    "Vite warns that the Three.js chunk exceeds 500 kB uncompressed; production build succeeds.",
+    "Pinned Starlette test client emits two dependency deprecation warnings.",
+    "React Doctor score 78/100, no errors, eight warnings reviewed: large UI components, seven-item array scans, one tiny ref initializer, and WebGL initialization effects. Existing error-state mount effects are necessary to report renderer failure; no state correctness failure was observed. Broad component refactors are outside this neural implementation."
+  ],
+  "implementation_sha256": {
+    "brain/__init__.py": "e7e5d44622d879167de28a1abba9bcc69e9d6229f62b7027a25aa315200a1306",
+    "brain/benchmark.py": "625ce730c483491912643b95f3aa76ee4f909f8e009a8760591a03150637544e",
+    "brain/connectome.py": "eb3c91551a8ffcbcae19834d7a402a4e52e03b0409e29a3565395745088405d9",
+    "brain/decoder.py": "3a5a882f4bebe599e8d3ed86621fb41aeeca96a15293b9310287f57ba3f7a14b",
+    "brain/kitchen.py": "0b644db184138e38dc9c9ff3fe6f8d4792c3c6c53b4c63ec3ff52e7073b15785",
+    "brain/model.py": "837fba0c0c8e4a08acec39654b70c11a37e2a993f0fe78cc9235b1cb1c27b495",
+    "brain/reference.py": "b8cf41504247621fe6396a1a52da73adfe30f269a2c44f8679ab4f1937559a2f",
+    "brain/server.py": "f6dab64c39daa2f741d4446fbe7cd10ecd6569a5dafa601d2a766bef1499c0df",
+    "brain/session.py": "580c21e73473dfaa850459aeb5f2cfb6856f2efdbd2f9314545ee0df6d84475d",
+    "brain/sources.py": "de5d70392f1a3dafeffb4d4e34bdf85c9852d83a05968996f300ddae93caeb42",
+    "brain/tests/test_kitchen.py": "da45b8eac1195a455502a4f4a9963d66ca8953bc2c4249f759b61eee6179e4af",
+    "brain/tests/test_model.py": "82fe3f81a9ac2a5372cd37adc6a2f76b0148ed0cf15b8cfa073a3efce313ac9d",
+    "brain/tests/test_session.py": "b958253a7dfc7e2e7487cc8c821d446f8ac76bef3e39fe3dcc382961329dc782",
+    "package-lock.json": "8262fd41260d6124eaaa4f569fc7a06609b4932846a22bc47bb0a26ba8845f2f",
+    "package.json": "727bb70486485cfbfc5f2ccbc63f670e482c2438b56feef7017c247e876808f6",
+    "pyproject.toml": "d130351383a828fb1b180af133573b263ae769ed7623cf65cb351d7ea23b3808",
+    "scripts/dev-local.mjs": "78e7704d917f326605c5f340e33ba9bcd85b1f73b330ed266ba5b6bd1be37bcc",
+    "src/App.tsx": "2db595f2a29cb20730245f30b4150d023bffabf5499290f2ce64dddfa82f4d42",
+    "src/BrainPanel.tsx": "ae3767fdf2b2048a84eb6aace35d1864806b1354bed0e84bbf8c881d4b1a1727",
+    "src/KitchenScene.tsx": "977119957e53d0a4b1117fa16c3f61b4c4d84cb41a577f201662924dc1f16054",
+    "src/NeuralBrainPanel.tsx": "ea5413d041ba677c14e472ba1e8a595334767cdc100ec8c7d069916142687a25",
+    "src/NeuralControls.tsx": "e5615c561924f9e5d069e4e38c184b541d451853dc20f5c6d0f0c3a98785ff0e",
+    "src/chefPerformance.test.ts": "86c8fa4ecae575715830b53e8e6a36d3c45553e6fafd8a0d3cbc04c7b1408839",
+    "src/chefPerformance.ts": "0bf4f569f75f32d95e11b220d7376c78a747a31600db27fe92b6bfe31238c7c3",
+    "src/doppi.ts": "e4ee019d1fd669a93a57d743ccde9916cfa8640bf399a8517193e6f35561e313",
+    "src/flyRig.ts": "88f8636246795886bfc080dd7c4d7ff2ed4d88473b6b661310ab0d57602a567e",
+    "src/illustrations.tsx": "6c1a059889330695b98cccbb1f5e8a48b62244203309cf8a727c14639b23a346",
+    "src/kitchenDetails.ts": "62f6a5090fe6d22906ba62d633c35c7761ddc2482800a2232769d00cf6cea279",
+    "src/main.tsx": "e81aec37c1befe991a35934ed8b90b73e7262a01e4dffae60e1ce87967ff09b4",
+    "src/neural.test.ts": "dc8c3f1bd2de02fbe92d0ecc8c99d12ad172a0fd4bccb0227e9974b6debb3176",
+    "src/neural.ts": "0338e492770bb5c4e027de84bafeb9ee3d7f67528586e56683529bc8828b5c01",
+    "src/simulation.test.ts": "ff87c4130804b12d9630cbb1d7725f07cef9e5f5fc2da6be8af0b71a85c355c9",
+    "src/simulation.ts": "628399de35e95517ff712f5ef59a8182ff9bf76f34e1d841015af63380c4c636",
+    "src/styles.css": "5e018c1e0d2eaff06974800eb887917db758bbf13bac8819625fd267288eca9f",
+    "src/useMotionClock.ts": "c9ca13231bd49074c736f3c24152f73bdab46f772ad783fc25fc548178ca69c3",
+    "src/useNeural.ts": "6590b65092bbb83aaf1005dcc87cecf8ffe92a7438213fa9e2d18c9109c731b7",
+    "uv.lock": "e8c548ad31acb54b4a86b6c25db4f657c2f9d29796a045f58c79b06550e07df0",
+    "vite.config.ts": "6fdd4d62b924cc714220995bf9e9de79207da10c0f11eedaa12163d3d1ebc753"
+  }
+}
